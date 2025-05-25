@@ -38,7 +38,7 @@ typedef struct s_env
 typedef struct s_bash
 {
 	t_env			*envp;
-	t_cmd			*cmd;
+	t_cmd			*cmd
 	unsigned char	exit_status;
 }					t_bash;
 
