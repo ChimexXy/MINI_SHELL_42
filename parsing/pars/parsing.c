@@ -20,7 +20,11 @@ int	select_struct1(t_bash *bash)
 	}
 	bash->commands = ft_strdup(cmd);
 	bash->args_pip = ft_split(cmd, '|');
-
+	if (!select_struct2(bash))
+	{
+		free(cmd);
+		return (0);
+	}
 	return (1);
 }
 
@@ -42,7 +46,19 @@ int	select_struct2(t_bash *bash)
 		i++;
 	}
 	bash->s_cmd[i] = NULL;
+	if (!red_parse(bash))
+	{
+        printf("bash: syntax error near unexpected token `newline'\n");
+        free_cmd_array(bash);
+		return (0);
+	}
 	return (1);
+}
+
+int	select_struct2(t_bash *bash)
+{
+	int	i;
+	int	j;
 }
 
 int	main()
