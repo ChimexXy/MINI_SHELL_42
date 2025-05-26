@@ -1,18 +1,18 @@
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#fndef MINISHELL_H
+#define MINISHELL_H
 
-# include <errno.h>
-# include <fcntl.h>
-# include <readline/history.h>
-# include <readline/readline.h>
-# include <signal.h>
-# include <stdbool.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <sys/types.h>
-# include <sys/wait.h>
-# include <sysexits.h>
-# include <unistd.h>
+#include <errno.h>
+#include <fcntl.h>
+#include <readline/history.h>
+#include <readline/readline.h>
+#include <signal.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <sysexits.h>
+#include <unistd.h>
 
 typedef struct s_red
 {
@@ -38,8 +38,7 @@ typedef struct s_env
 typedef struct s_bash
 {
 	t_env			*envp;
-	t_cmd			*cmd
-	unsigned char	exit_status;
+	t_cmd *cmd unsigned char exit_status;
 }					t_bash;
 
 /*

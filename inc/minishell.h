@@ -1,60 +1,60 @@
 #ifndef MINISHELL_H
-#define MINISHELL_H
+# define MINISHELL_H
 
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <readline/readline.h>
-#include <readline/history.h>
+# include <readline/history.h>
+# include <readline/readline.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
 
-typedef enum x_type{
+typedef enum x_type
+{
 	// REDIRECTION,
-	// ENVIROMENT,	
+	// ENVIROMENT,
 	// SINGLE_QUOTE, // '
 	// DOUBLE_QUOTE, // "
-	INPUT, // <
-	OUTPUT, // >
-	HERE_DOC, // <<
-	APPEND, // >>
+	INPUT,       // <
+	OUTPUT,      // >
+	HERE_DOC,    // <<
+	APPEND,      // >>
 	DOLLAR_SIGN, // $
-}		t_type;
+}			t_type;
 
-typedef struct x_red{
-
+typedef struct x_red
+{
 	char	*file;
 	t_type	type;
 	int		check_flag;
 
 }			t_red;
 
-typedef struct x_env{
-
-	char 		*key;
-	char 		*value;
+typedef struct x_env
+{
+	char	*key;
+	char	*value;
 
 }			t_env;
 
-typedef struct x_cmd{
-	
+typedef struct x_cmd
+{
 	char	*command;
 	char	**arguments;
 	int		check_red;
 	int		check_env;
 
-	t_red 		**s_red;
-	t_env 		**s_env;
+	t_red	**s_red;
+	t_env	**s_env;
 
-}		t_cmd;
+}			t_cmd;
 
-
-typedef struct x_bash{
-
+typedef struct x_bash
+{
 	char	*commands;
 	char	**args_pip;
 	int		num_cmd;
 
-	t_cmd 	**s_cmd;
+	t_cmd	**s_cmd;
 
-}		t_bash;
+}			t_bash;
 
 #endif
