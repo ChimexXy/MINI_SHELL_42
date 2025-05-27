@@ -1,11 +1,16 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include "./libft/libft.h"
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+
+# define MAX_PATH_LEN 4096
+# define SUCCESS 0
+# define ERROR 1
 
 typedef enum x_type
 {
@@ -53,8 +58,13 @@ typedef struct x_bash
 	char	**args_pip;
 	int		num_cmd;
 
-	t_cmd	**s_cmd;
+	t_cmd	*s_cmd;
 
 }			t_bash;
 
+/* excutions functions
+ */
+char		*get_env_value(t_env *env_list, char *key);
+
+int	*update_env(t_bash **)
 #endif
