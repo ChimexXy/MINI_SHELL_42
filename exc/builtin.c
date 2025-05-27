@@ -73,15 +73,12 @@ int	builtin_cd(t_bash *bash, t_cmd *cmd)
 		perror("HOME Error");
 		return (ERROR);
 	}
-	if (!getcwd(cwd, MAX_PATH_LEN))
+	if (chdir(path) != 0)
 	{
-		perror("PATH ERROR");
+		perror("cd");
 		return (ERROR);
 	}
-	if (!chdir(cwd))
-	{
-		perror("cd ERROR");
-		return (ERROR);
-	}
+	if (getcwd(cwd, MAX_PATH_LEN))
+		update_env();
 	return (SUCCESS);
 }

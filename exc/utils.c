@@ -11,3 +11,7 @@ char	*get_env_value(t_env *env_list, char *key)
 		return (current->value);
 	return (NULL);
 }
+
+int	*update_env(t_bash **list_env, t_env *env)
+{
+}
