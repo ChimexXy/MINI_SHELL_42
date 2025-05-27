@@ -1,7 +1,4 @@
 #include "../inc/minishell.h"
-#include <csignal>
-#include <readline/readline.h>
-#include <signal.h>
 
 /*
  * ctr-c function
@@ -23,14 +20,6 @@ void	handel_sigint(int sig)
 void	handel_sigquit(int sig)
 {
 	(void)sig;
-}
-
-/*
- * ctr-d function
- */
-
-void	handel_sigterm(void)
-{
 }
 
 void	active_signal(void)
