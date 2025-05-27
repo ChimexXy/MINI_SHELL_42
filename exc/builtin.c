@@ -12,7 +12,7 @@ int	builtin_echo(t_cmd *cmd)
 	int	i;
 	int	n_flag;
 
-	if (!cmd || !*cmd)
+	if (!cmd || !cmd->arguments)
 	{
 		perror("commend Erorr");
 		return (1);
@@ -63,12 +63,25 @@ int	builtin_cd(t_bash *bash, t_cmd *cmd)
 	char	cwd[MAX_PATH_LEN];
 
 	if (!cmd || !cmd->arguments)
+		return (ERROR);
+	if (!cmd->arguments[1])
+		path = get_env_value(bash->s_cmd, "HOME");
+	else
+		path = cmd->arguments[1];
+	if (!path)
 	{
-		perror("cd");
+		perror("HOME Error");
 		return (ERROR);
 	}
-	if (!cmd->arguments[1])
+	if (!getcwd(cwd, MAX_PATH_LEN))
 	{
-		path =
+		perror("PATH ERROR");
+		return (ERROR);
 	}
+	if (!chdir(cwd))
+	{
+		perror("cd ERROR");
+		return (ERROR);
+	}
+	return (SUCCESS);
 }
