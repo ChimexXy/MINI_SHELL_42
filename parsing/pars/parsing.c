@@ -16,6 +16,7 @@ void free_cmd_array(t_bash *bash)
 			free(bash->s_cmd[i]->s_env);
 			free(bash->s_cmd[i]->arguments);
 			free(bash->s_cmd[i]);
+			bash->s_cmd[i] = NULL;
 		}
 		i++;
 	}
@@ -30,7 +31,6 @@ int	select_struct1(t_bash *bash)
 	cmd = readline("minishell$ ");
 	if(!cmd || !check_cmd(cmd) || !check_cmd1(cmd))
 	{
-		free_cmd_array(bash);
 		bash->num_cmd = 0;
 		free(cmd);
 		return (0);
@@ -99,6 +99,7 @@ void	select_struct(t_bash *bash)
 		return ;
 	if (!select_struct3(bash))
 		return ;
+	check_red_env(bash);
 }
 
 int	main()
@@ -112,7 +113,13 @@ int	main()
 		int i = 0;
 		while(bash->s_cmd[i])
 		{
-			printf("command num %d : %s\n", i, bash->s_cmd[i]->command);
+			int j = 0;
+			while(bash->s_cmd[i]->arguments[j])
+			{
+				printf("command num %d : %s\n", i, bash->s_cmd[i]->arguments[j]);
+				j++;
+			}
+			// printf("command num %d : %s\n", i, bash->s_cmd[i]->command);
 			i++;
 		}
 	}

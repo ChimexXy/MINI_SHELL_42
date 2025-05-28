@@ -21,7 +21,7 @@ int	check_tokinzer(char c)
 	return (0);
 }
 
-int	count_word(char *cmd)
+int	count_word_tk(char *cmd)
 {
 	int	i;
 	int	j;
@@ -75,7 +75,7 @@ char **tokenizer(char *cmd)
 
 	if(!cmd)
 		return (NULL);
-	word = count_word(cmd);
+	word = count_word_tk(cmd);
 	ret = malloc(sizeof(char *) * (word + 1));
 	if (!ret)
 		return (NULL);

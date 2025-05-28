@@ -23,9 +23,9 @@ int check_envirment(char *str)
 	int	i;
 
 	i = 0;
-	if(!str)
+	if (!str)
 		return 0;
-	while(str[i])
+	while (str[i])
 	{
 		if (str[i] == '=')
 			return (1);
