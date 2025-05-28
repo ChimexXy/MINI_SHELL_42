@@ -1,7 +1,7 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "./libft/libft.h"
+// # include "./libft/libft.h"
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <stdio.h>
@@ -58,7 +58,7 @@ typedef struct x_bash
 	char	**args_pip;
 	int		num_cmd;
 
-	t_cmd	*s_cmd;
+	t_cmd	**s_cmd;
 
 }			t_bash;
 
@@ -66,5 +66,5 @@ typedef struct x_bash
  */
 char		*get_env_value(t_env *env_list, char *key);
 
-int	*update_env(t_bash **)
+int	*update_env(t_bash **);
 #endif
