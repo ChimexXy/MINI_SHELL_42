@@ -1,6 +1,6 @@
 #include "../../inc/minishell.h"
 
-void	free_double_pointer(char **arr, int p)
+void	free_double_pointer_tk(char **arr, int p)
 {
 	if (!arr)
 		return ;
@@ -17,11 +17,11 @@ int	check_tokinzer(char c)
 {
 	if (c == '>' || c == '<' 
 		|| c == ' ' || c == '\t')
-		retrun (1);
+		return (1);
 	return (0);
 }
 
-int	ft_count_word(char *cmd)
+int	count_word(char *cmd)
 {
 	int	i;
 	int	j;
@@ -40,7 +40,7 @@ int	ft_count_word(char *cmd)
 	return (j);
 }
 
-char	**alloc_words(char **ret, char *cmd, int word)
+char	**alloc_words_tk(char **ret, char *cmd, int word)
 {
 	int		i;
 	int		x;
@@ -59,7 +59,7 @@ char	**alloc_words(char **ret, char *cmd, int word)
 		ret[x] = ft_substr(cmd, start, i - start);
 		if (!ret[x])
 		{
-			free_double_pointer(ret, x);
+			free_double_pointer_tk(ret, x);
 			return (NULL);
 		}
 		x++;
@@ -79,7 +79,7 @@ char **tokenizer(char *cmd)
 	ret = malloc(sizeof(char *) * (word + 1));
 	if (!ret)
 		return (NULL);
-	ret = alloc_words(ret, cmd, word);
+	ret = alloc_words_tk(ret, cmd, word);
 	if (!ret)
 		return (NULL);
 	return (ret);

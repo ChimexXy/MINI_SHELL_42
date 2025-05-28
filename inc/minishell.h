@@ -67,4 +67,36 @@ typedef struct x_bash
 char		*get_env_value(t_env *env_list, char *key);
 
 int	*update_env(t_bash **);
+
+
+// parsing function
+
+//->parsing:
+
+int	select_struct1(t_bash *bash);
+int	select_struct2(t_bash *bash);
+int	select_struct3(t_bash *bash);
+void	select_struct(t_bash *bash);
+
+//->parsing1:
+
+int	check_cmd(char *str);
+int	check_cmd1(char *str);
+int	count_pipes(char *cmd);
+int red_parse(t_bash *bash);
+
+//->tokrnizer
+
+char **tokenizer(char *cmd);
+
+//->utils(libft)
+
+char	*ft_substr(char *str, int start, int len);
+char	**ft_split(char *cmd, char sep);
+char	*ft_strdup(char *cmd);
+int	ft_strlen(char *cmd);
+char	*ft_substr(char *str, int start, int len);
+
+// parsing function
+
 #endif

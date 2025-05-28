@@ -1,5 +1,28 @@
 #include "../../inc/minishell.h"
 
+void free_cmd_array(t_bash *bash)
+{
+	int i;
+
+	i = 0;
+	if (!bash->s_cmd)
+		return;
+	while (i < bash->num_cmd)
+	{
+		if (bash->s_cmd[i])
+		{
+			free(bash->s_cmd[i]->command);
+			free(bash->s_cmd[i]->s_red);
+			free(bash->s_cmd[i]->s_env);
+			free(bash->s_cmd[i]->arguments);
+			free(bash->s_cmd[i]);
+		}
+		i++;
+	}
+	free(bash->s_cmd);
+	bash->s_cmd = NULL;
+}
+
 int	select_struct1(t_bash *bash)
 {
 	char *cmd;
@@ -7,6 +30,7 @@ int	select_struct1(t_bash *bash)
 	cmd = readline("minishell$ ");
 	if(!cmd || !check_cmd(cmd) || !check_cmd1(cmd))
 	{
+		free_cmd_array(bash);
 		bash->num_cmd = 0;
 		free(cmd);
 		return (0);
@@ -20,11 +44,7 @@ int	select_struct1(t_bash *bash)
 	}
 	bash->commands = ft_strdup(cmd);
 	bash->args_pip = ft_split(cmd, '|');
-	if (!select_struct2(bash))
-	{
-		free(cmd);
-		return (0);
-	}
+	free(cmd);
 	return (1);
 }
 
@@ -55,10 +75,30 @@ int	select_struct2(t_bash *bash)
 	return (1);
 }
 
-int	select_struct2(t_bash *bash)
+int	select_struct3(t_bash *bash)
 {
 	int	i;
 	int	j;
+
+	i = 0;
+	while (bash->s_cmd[i])
+	{
+		if (!bash->s_cmd[i]->command)
+			return (0);
+		bash->s_cmd[i]->arguments = tokenizer(bash->s_cmd[i]->command);
+		i++;
+	}
+	return (1);
+}
+
+void	select_struct(t_bash *bash)
+{
+	if (!select_struct1(bash))
+		return ;
+	if (!select_struct2(bash))
+		return ;
+	if (!select_struct3(bash))
+		return ;
 }
 
 int	main()
@@ -68,6 +108,12 @@ int	main()
 	bash = malloc(sizeof(bash));
 	while(1)
 	{
-
+		select_struct(bash);
+		int i = 0;
+		while(bash->s_cmd[i])
+		{
+			printf("command num %d : %s\n", i, bash->s_cmd[i]->command);
+			i++;
+		}
 	}
 }

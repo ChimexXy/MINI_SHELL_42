@@ -64,7 +64,7 @@ char **ft_split(char *cmd, char sep)
 
 	if(!cmd)
 		return (NULL);
-	word = count_word(cmd) + 1;
+	word = ft_count_word(cmd, sep) + 1;
 	ret = malloc(sizeof(char *) * word);
 	if (!ret)
 		return (NULL);
