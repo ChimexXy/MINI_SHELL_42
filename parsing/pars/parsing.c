@@ -1,12 +1,12 @@
 #include "../../inc/minishell.h"
 
-void free_cmd_array(t_bash *bash)
+void	free_cmd_array(t_bash *bash)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!bash->s_cmd)
-		return;
+		return ;
 	while (i < bash->num_cmd)
 	{
 		if (bash->s_cmd[i])
@@ -22,15 +22,51 @@ void free_cmd_array(t_bash *bash)
 	}
 	free(bash->s_cmd);
 	bash->s_cmd = NULL;
+	i = 0;
+	if (!bash->s_cmd)
+		return ;
+	while (i < bash->num_cmd)
+	{
+		if (bash->s_cmd[i])
+		{
+			free(bash->s_cmd[i]->command);
+			free(bash->s_cmd[i]->s_red);
+			free(bash->s_cmd[i]->s_env);
+			free(bash->s_cmd[i]->arguments);
+			free(bash->s_cmd[i]);
+		}
+		i++;
+	}
+	free(bash->s_cmd);
+	bash->s_cmd = NULL;
 }
 
 int	select_struct1(t_bash *bash)
 {
-	char *cmd;
+	char	*cmd;
 
 	cmd = readline("minishell$ ");
-	if(!cmd || !check_cmd(cmd) || !check_cmd1(cmd))
+	if (!cmd || !check_cmd(cmd) || !check_cmd1(cmd))
 	{
+		bash->num_cmd = 0;
+		free(cmd);
+		return (0);
+	}
+	bash->num_cmd = count_pipes(cmd);
+	bash->s_cmd = malloc(sizeof(t_cmd *) * (bash->num_cmd + 1));
+	if (!bash->s_cmd)
+	{
+		free(cmd);
+		return (0);
+	}
+	bash->commands = ft_strdup(cmd);
+	bash->args_pip = ft_split(cmd, '|');
+	free(cmd);
+	return (1);
+	cmd = readline("minishell$ ");
+	if (!cmd || !check_cmd(cmd) || !check_cmd1(cmd))
+	{
+		free_cmd_array(bash);
 		bash->num_cmd = 0;
 		free(cmd);
 		return (0);
@@ -53,7 +89,7 @@ int	select_struct2(t_bash *bash)
 	int	i;
 
 	i = 0;
-	while(i < bash->num_cmd)
+	while (i < bash->num_cmd)
 	{
 		bash->s_cmd[i] = malloc(sizeof(t_cmd));
 		if (!bash->s_cmd[i])
@@ -68,8 +104,8 @@ int	select_struct2(t_bash *bash)
 	bash->s_cmd[i] = NULL;
 	if (!red_parse(bash))
 	{
-        printf("bash: syntax error near unexpected token `newline'\n");
-        free_cmd_array(bash);
+		printf("bash: syntax error near unexpected token `newline'\n");
+		free_cmd_array(bash);
 		return (0);
 	}
 	return (1);
@@ -91,8 +127,14 @@ int	select_struct3(t_bash *bash)
 	return (1);
 }
 
-void	select_struct(t_bash *bash)
+void	*select_struct(t_bash *bash)
 {
+	t_bash	*bash;
+	int		i;
+	int		i;
+	int		j;
+
+	// 	int		a;
 	if (!select_struct1(bash))
 		return ;
 	if (!select_struct2(bash))
@@ -101,25 +143,45 @@ void	select_struct(t_bash *bash)
 		return ;
 	check_red_env(bash);
 }
-
-int	main()
+void	select_struct(t_bash *bash)
 {
-	t_bash	*bash;
+	if (!select_struct1(bash))
+		return ;
+	if (!select_struct2(bash))
+		return ;
+	if (!select_struct3(bash))
+		return ;
+}
+int	main(void)
+{
+	int	i;
 
 	bash = malloc(sizeof(bash));
-	while(1)
+	while (1)
 	{
 		select_struct(bash);
-		int i = 0;
-		while(bash->s_cmd[i])
+		i = 0;
+		while (bash->s_cmd[i])
 		{
-			int j = 0;
-			while(bash->s_cmd[i]->arguments[j])
+			j = 0;
+			while (bash->s_cmd[i]->arguments[j])
 			{
-				printf("command num %d : %s\n", i, bash->s_cmd[i]->arguments[j]);
+				printf("command num %d : %s\n", i,
+						bash->s_cmd[i]->arguments[j]);
 				j++;
 			}
 			// printf("command num %d : %s\n", i, bash->s_cmd[i]->command);
+			i++;
+		}
+	}
+	bash = malloc(sizeof(bash));
+	while (1)
+	{
+		select_struct(bash);
+		i = 0;
+		while (bash->s_cmd[i])
+		{
+			printf("command num %d : %s\n", i, bash->s_cmd[i]->command);
 			i++;
 		}
 	}

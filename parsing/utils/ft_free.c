@@ -1,12 +1,12 @@
 #include "../../inc/minishell.h"
 
-void free_cmd_array(t_bash *bash)
+void	free_cmd_array(t_bash *bash)
 {
 	int i;
 
 	i = 0;
 	if (!bash->s_cmd)
-		return;
+		return ;
 	while (i < bash->num_cmd)
 	{
 		if (bash->s_cmd[i])

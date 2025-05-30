@@ -62,26 +62,23 @@ typedef struct x_bash
 
 }					t_bash;
 
-/* excutions functions
+/*
+ * excutions functions
  */
 char				*get_env_value(t_env *env_list, char *key);
-int					*update_env(t_bash **env_list, t_env *env);
+int					*update_env(t_bash **list_env, t_env *env);
 int					*creat_env_node(t_env *env);
-int					*update_env(t_bash **);
 
 //->parsing:
-<<<<<<< HEAD
 
-int		select_struct1(t_bash *bash);
-int		select_struct2(t_bash *bash);
-int		select_struct3(t_bash *bash);
-void	select_struct(t_bash *bash);
-=======
 int					select_struct1(t_bash *bash);
 int					select_struct2(t_bash *bash);
 int					select_struct3(t_bash *bash);
 void				select_struct(t_bash *bash);
->>>>>>> 9577c97cafcb67ece4d1117aea9bde60168af047
+int					select_struct1(t_bash *bash);
+int					select_struct2(t_bash *bash);
+int					select_struct3(t_bash *bash);
+void				select_struct(t_bash *bash);
 
 //->parsing1:
 int					check_cmd(char *str);
@@ -91,29 +88,27 @@ int					red_parse(t_bash *bash);
 
 //->parsing2:
 
-int		check_redirection(char *str);
-int		check_envirment(char *str);
-void	check_red_env(t_bash *bash);
+int					check_redirection(char *str);
+int					check_envirment(char *str);
+void				check_red_env(t_bash *bash);
 
 //->tokrnizer
-<<<<<<< HEAD
 
-char	**tokenizer(char *cmd);
-int		check_tokinzer(char c);
-int		count_word_tk(char *cmd);
-void	free_double_pointer_tk(char **arr, int p);
-char	**alloc_words_tk(char **ret, char *cmd, int word);
+char				**tokenizer(char *cmd);
+int					check_tokinzer(char c);
+int					count_word_tk(char *cmd);
+void				free_double_pointer_tk(char **arr, int p);
+char				**alloc_words_tk(char **ret, char *cmd, int word);
 
 //->utils(libft)
 
-char	*ft_substr(char *str, int start, int len);
-char	**ft_split(char *cmd, char sep);
-char	*ft_strdup(char *cmd);
-int		ft_strlen(char *cmd);
-char	*ft_substr(char *str, int start, int len);
+char				*ft_substr(char *str, int start, int len);
+char				**ft_split(char *cmd, char sep);
+char				*ft_strdup(char *cmd);
+int					ft_strlen(char *cmd);
+char				*ft_substr(char *str, int start, int len);
 
 // parsing function
-=======
 char				**tokenizer(char *cmd);
 
 //->utils(libft)
@@ -122,6 +117,6 @@ char				**ft_split(char *cmd, char sep);
 char				*ft_strdup(char *cmd);
 int					ft_strlen(char *cmd);
 char				*ft_substr(char *str, int start, int len);
->>>>>>> 9577c97cafcb67ece4d1117aea9bde60168af047
 
+char				*ft_strcmp(char *s1, char *s2);
 #endif

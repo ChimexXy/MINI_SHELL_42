@@ -12,11 +12,9 @@ void	free_double_pointer_tk(char **arr, int p)
 	free(arr);
 }
 
-
 int	check_tokinzer(char c)
 {
-	if (c == '>' || c == '<' 
-		|| c == ' ' || c == '\t')
+	if (c == '>' || c == '<' || c == ' ' || c == '\t')
 		return (1);
 	return (0);
 }
@@ -42,19 +40,19 @@ int	count_word_tk(char *cmd)
 
 char	**alloc_words_tk(char **ret, char *cmd, int word)
 {
-	int		i;
-	int		x;
-	int		start;
+	int	i;
+	int	x;
+	int	start;
 
 	i = 0;
 	x = 0;
 	start = 0;
-	while(x < word)
+	while (x < word)
 	{
-		while(check_tokinzer(cmd[i]) == 1 && cmd[i])
+		while (check_tokinzer(cmd[i]) == 1 && cmd[i])
 			i++;
 		start = i;
-		while(check_tokinzer(cmd[i]) == 0 && cmd[i])
+		while (check_tokinzer(cmd[i]) == 0 && cmd[i])
 			i++;
 		ret[x] = ft_substr(cmd, start, i - start);
 		if (!ret[x])
@@ -68,12 +66,12 @@ char	**alloc_words_tk(char **ret, char *cmd, int word)
 	return (ret);
 }
 
-char **tokenizer(char *cmd)
+char	**tokenizer(char *cmd)
 {
-	int		word;
-	char	**ret;
+	int word;
+	char **ret;
 
-	if(!cmd)
+	if (!cmd)
 		return (NULL);
 	word = count_word_tk(cmd);
 	ret = malloc(sizeof(char *) * (word + 1));

@@ -1,7 +1,4 @@
 #include "../inc/minishell.h"
-#include <stdio.h>
-#include <time.h>
-#include <unistd.h>
 
 /*
  * for echo commend

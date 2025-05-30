@@ -31,19 +31,19 @@ int	ft_count_word(char *cmd, char sep)
 
 char	**alloc_words(char **ret, char *cmd, char sep, int word)
 {
-	int		i;
-	int		x;
-	int		start;
+	int	i;
+	int	x;
+	int	start;
 
 	i = 0;
 	x = 0;
 	start = 0;
-	while(x < word)
+	while (x < word)
 	{
-		while(cmd[i] == sep && cmd[i])
+		while (cmd[i] == sep && cmd[i])
 			i++;
 		start = i;
-		while(cmd[i] != sep && cmd[i])
+		while (cmd[i] != sep && cmd[i])
 			i++;
 		ret[x] = ft_substr(cmd, start, i - start);
 		if (!ret[x])
@@ -57,12 +57,12 @@ char	**alloc_words(char **ret, char *cmd, char sep, int word)
 	return (ret);
 }
 
-char **ft_split(char *cmd, char sep)
+char	**ft_split(char *cmd, char sep)
 {
 	int		word;
 	char	**ret;
 
-	if(!cmd)
+	if (!cmd)
 		return (NULL);
 	word = ft_count_word(cmd, sep) + 1;
 	ret = malloc(sizeof(char *) * word);
