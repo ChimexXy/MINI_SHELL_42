@@ -8,6 +8,8 @@ int check_cmd(char *cmd)
 		return (0);
 	else if (!check_pipe2(cmd))
 		return (0);
+	else if (!check_pipe3(cmd))
+		return (0);
 	return (1);
 }
 
@@ -78,6 +80,32 @@ int	check_pipe2(char *check_cmd1)
 	{
 		printf("invalid token :(\n");
 		return (0);
+	}
+	return (1);
+}
+
+int	check_pipe3(char *cmd)
+{
+	int	i;
+
+	i = 0;
+	while (cmd[i])
+	{
+		if (cmd[i] == '|')
+		{
+			i++;
+			if (!cmd[i])
+				return (0);
+			while(cmd[i] == ' ')
+				i++;
+			if(cmd[i] == '|' || cmd[i] == '\0')
+			{
+				printf("bash: syntax error near unexpected token `|'\n");
+				return (0);
+			}
+		}
+		else
+			i++;
 	}
 	return (1);
 }

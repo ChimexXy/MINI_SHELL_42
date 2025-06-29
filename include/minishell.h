@@ -167,6 +167,7 @@ int					ft_is_valid_identifier(char *str);
 int check_cmd(char *cmd);
 int	check_pipe1(char *cmd);
 int	check_pipe2(char *cmd);
+int	check_pipe3(char *cmd);
 int ft_handle_qoutes(char *cmd);
 
 #endif
