@@ -34,6 +34,7 @@ t_cmd	*ft_parse_tokens(t_token *tokens, t_shell *shell)
 	t_cmd	*cmds;
 	t_cmd	*current_cmd;
 	t_cmd	*new_cmd;
+	int		initial_exit_status;
 
 	if (!tokens)
 		return (NULL);
@@ -41,7 +42,14 @@ t_cmd	*ft_parse_tokens(t_token *tokens, t_shell *shell)
 	current_cmd = cmds;
 	while (tokens)
 	{
+		initial_exit_status = shell->exit_status;
 		ft_pars_args(current_cmd, &tokens, shell);
+		if (shell->exit_status == SYNTAX_ERROR &&
+			initial_exit_status != SYNTAX_ERROR)
+		{
+			ft_free_cmds(cmds);
+			return (NULL);
+		}
 		if (tokens && tokens->type == TOKEN_PIPE)
 		{
 			tokens = tokens->next;

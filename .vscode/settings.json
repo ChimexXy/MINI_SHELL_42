@@ -1,5 +1,8 @@
 {
 	"files.associations": {
-		"minishell.h": "c"
+		"*.json": "cpp",
+		"minishell.h": "c",
+		"functional": "c",
+		"streambuf": "c"
 	}
 }
