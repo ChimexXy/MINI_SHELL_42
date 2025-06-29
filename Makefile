@@ -31,6 +31,7 @@ SOURCES = $(SRCDIR)/exec/executor.c \
           $(SRCDIR)/parsing/env_basic.c \
           $(SRCDIR)/parsing/env_unset.c \
           $(SRCDIR)/parsing/lexer.c \
+          $(SRCDIR)/parsing/handle_qoutes.c \
           $(SRCDIR)/parsing/token_utils.c \
           $(SRCDIR)/utils/error_handling.c \
 

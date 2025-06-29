@@ -27,6 +27,55 @@ int	ft_builtin_echo(char **args)
 	return (0);
 }
 
+int	is_valid_n_option(char *str)
+{
+	int	i;
+
+	if (!str)
+		return (0);
+	if (str[0] != '-')
+		return (0);
+	if (str[1] == '\0') // if it's just "-"
+		return (0);
+	i = 1;
+	while (str[i])
+	{
+		if (str[i] != 'n')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+
+int	ft_builtin_echo(char **args)
+{
+	int	i;
+	int	newline;
+
+	i = 1;
+	newline = 1;
+
+	// check for multiple valid -n options like -n -nnn
+	while (args[i] && is_valid_n_option(args[i]))
+	{
+		newline = 0;
+		i++;
+	}
+	while (args[i])
+	{
+		ft_putstr_fd(args[i], 1);
+		if (args[i + 1])
+			ft_putchar_fd(' ', 1);
+		i++;
+	}
+	if (newline)
+		ft_putchar_fd('\n', 1);
+	return (0);
+}
+
+
+
 int	ft_builtin_cd(char **args)
 {
 	char	*path;

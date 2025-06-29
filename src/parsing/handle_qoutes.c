@@ -1,0 +1,83 @@
+#include "../../include/minishell.h"
+
+int check_cmd(char *cmd)
+{
+	if (!ft_handle_qoutes(cmd))
+		return (0);
+	else if (!check_pipe1(cmd))
+		return (0);
+	else if (!check_pipe2(cmd))
+		return (0);
+	return (1);
+}
+
+int ft_handle_qoutes(char *cmd)
+{
+	int		i;
+	char	c;
+	int		state;
+
+	i = 0;
+	state = 0;
+	if (!cmd)
+		return (0);
+	while (cmd[i])
+	{
+		if (cmd[i] == 34 || cmd[i] == 39)
+		{
+			c = cmd[i];
+			i++;
+			while (cmd[i] && cmd[i] != c)
+				i++;
+			if (!cmd[i])
+			{
+				printf("qoutes error \n");
+				return (0);
+			}
+		}
+		i++;
+	}
+	return (1);
+}
+
+int	check_pipe1(char *cmd)
+{
+	int	i;
+
+	i = 0;
+	while ((cmd[i] >= 9 && cmd[i] <= 13) || cmd[i] == 32)
+		i++;
+	if (cmd[i] == '|')
+	{
+		if (cmd[i + 1] == '|')
+			printf("bash: syntax error near unexpected token `||'\n");
+		else
+			printf("bash: syntax error near unexpected token `|'\n");
+		return (0);
+	}
+	while (cmd[i])
+	{
+		if (cmd[i] == '|' && cmd[i + 1] == '|')
+		{
+			printf("invalid token :( \n");
+			return (0);
+		}
+		i++;
+	}
+	return (1);
+}
+
+int	check_pipe2(char *check_cmd1)
+{
+	int	i;
+
+	i = ft_strlen(check_cmd1) - 1;
+	while (i >= 0 && check_cmd1[i] == ' ')
+		i--;
+	if (check_cmd1[i] == '|')
+	{
+		printf("invalid token :(\n");
+		return (0);
+	}
+	return (1);
+}

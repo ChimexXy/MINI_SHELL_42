@@ -1,0 +1,12 @@
+echo -n -n
+echo -n -n Hola Que
+echo -p
+echo -nnnnn
+echo -n -nnn -nnnn
+echo -n-nnn -nnnn
+echo -n -nnn hola -nnnn
+echo -n -nnn-nnnn
+echo --------n
+echo -nnn --------n
+echo -nnn -----nn---nnnn
+echo -nnn --------nnnn

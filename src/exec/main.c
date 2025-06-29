@@ -21,6 +21,8 @@ void	ft_shell_loop(t_shell *shell)
 			ft_putendl_fd("exit", 1);
 			break ;
 		}
+		if (!check_cmd(input))	
+			continue ;
 		if (*input && *input != '\n')
 			add_history(input);
 		if (!*input || *input == '\n')
