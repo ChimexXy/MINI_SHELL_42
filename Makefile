@@ -1,5 +1,3 @@
-# Simple Makefile for minishell
-
 NAME = minishell
 
 CC = gcc
