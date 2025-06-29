@@ -1,8 +1,8 @@
 NAME = minishell
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -Iinclude
-LDFLAGS = -lreadline
+CFLAGS = -Wall -Wextra -Werror -Iinclude -I/Users/mozahnou/.brew/opt/readline/include
+LDFLAGS = -L/Users/mozahnou/.brew/opt/readline/lib -lreadline
 
 SRCDIR = src
 LIBFT_DIR = $(SRCDIR)/utils/libft
@@ -41,7 +41,7 @@ all: $(NAME)
 $(LIBFT):
 	make -C $(LIBFT_DIR)
 
-$(NAME): $(LIBFT) $(OBJECTS)
+$(NAME): $(LIBFT) $(OBJECTS) include/minishell.h
 	$(CC) $(OBJECTS) $(LIBFT) -o $(NAME) $(LDFLAGS)
 
 %.o: %.c
