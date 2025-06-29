@@ -47,9 +47,6 @@
 #define SYNTAX_ERROR "syntax error near unexpected token"
 #define UNCLOSED_QUOTE "unexpected EOF while looking for matching"
 
-/* Global variables */
-extern int g_signal;
-
 typedef enum e_token_type {
   TOKEN_WORD,
   TOKEN_PIPE,
@@ -130,8 +127,6 @@ int ft_process_heredoc_input(char *delimiter);
 /* Signal functions */
 void ft_setup_signals(void);
 void ft_signal_handler(int sig);
-void ft_handle_sigint(void);
-void ft_handle_sigquit(void);
 
 /* Lexer and parser functions */
 t_token *ft_tokenize(char *input);
@@ -167,11 +162,7 @@ void ft_print_error(char *prefix, char *message);
 void ft_print_command_error(char *command, char *message);
 void ft_print_file_error(char *filename);
 void ft_print_syntax_error(char *token);
-int ft_handle_cd_error(char *path);
 int ft_handle_export_error(char *identifier);
-int ft_handle_exit_error(char **args);
-int ft_handle_redirection_error(char *filename, int error_type);
 int ft_is_valid_identifier(char *str);
-void ft_print_pipe_error(void);
 
 #endif
