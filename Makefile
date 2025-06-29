@@ -1,3 +1,5 @@
+# Simple Makefile for minishell
+
 NAME = minishell
 
 CC = gcc
@@ -19,7 +21,7 @@ SOURCES = $(SRCDIR)/exec/executor.c \
           $(SRCDIR)/exec/builtins_basic.c \
           $(SRCDIR)/exec/builtins_export.c \
           $(SRCDIR)/exec/builtins_exit.c \
-          $(SRCDIR)/exec/heredoc.c \
+          $(SRCDIR)/parsing/heredoc.c \
           $(SRCDIR)/parsing/path.c \
           $(SRCDIR)/parsing/path_utils.c \
           $(SRCDIR)/parsing/expand.c \

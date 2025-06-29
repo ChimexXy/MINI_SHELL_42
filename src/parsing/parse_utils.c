@@ -46,11 +46,14 @@ void	ft_process_redir_token(t_cmd *cmd, t_token **token, t_shell *shell)
 	}
 	else
 	{
-		if (!*token)
-			ft_print_syntax_error("newline");
-		else
-			ft_print_syntax_error((*token)->value);
-		shell->exit_status = MS_SYNTAX_ERROR;
+		if (shell->exit_status != MS_SYNTAX_ERROR)
+		{
+			if (!*token)
+				ft_print_syntax_error("newline");
+			else
+				ft_print_syntax_error((*token)->value);
+			shell->exit_status = MS_SYNTAX_ERROR;
+		}
 	}
 }
 
