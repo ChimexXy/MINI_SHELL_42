@@ -1,32 +1,5 @@
 #include "../../include/minishell.h"
 
-int	ft_builtin_echo(char **args)
-{
-	int	i;
-	int	newline;
-	int	first_arg;
-
-	i = 1;
-	first_arg = 1;
-	newline = 1;
-	while (args[i] && ft_strcmp(args[i], "-n") == 0)
-	{
-		newline = 0;
-		i++;
-	}
-	while (args[i])
-	{
-		if (!first_arg)
-			ft_putstr_fd(" ", 1);
-		ft_putstr_fd(args[i], 1);
-		first_arg = 0;
-		i++;
-	}
-	if (newline)
-		ft_putstr_fd("\n", 1);
-	return (0);
-}
-
 int	is_valid_n_option(char *str)
 {
 	int	i;
@@ -55,8 +28,6 @@ int	ft_builtin_echo(char **args)
 
 	i = 1;
 	newline = 1;
-
-	// check for multiple valid -n options like -n -nnn
 	while (args[i] && is_valid_n_option(args[i]))
 	{
 		newline = 0;
