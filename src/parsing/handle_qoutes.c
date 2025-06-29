@@ -1,6 +1,6 @@
 #include "../../include/minishell.h"
 
-int check_cmd(char *cmd)
+int	check_cmd(char *cmd)
 {
 	if (!ft_handle_qoutes(cmd))
 		return (0);
@@ -17,14 +17,12 @@ int check_cmd(char *cmd)
 	return (1);
 }
 
-int ft_handle_qoutes(char *cmd)
+int	ft_handle_qoutes(char *cmd)
 {
 	int		i;
 	char	c;
-	int		state;
 
 	i = 0;
-	state = 0;
 	if (!cmd)
 		return (0);
 	while (cmd[i])
@@ -100,9 +98,9 @@ int	ft_handle_pipe3(char *cmd)
 			i++;
 			if (!cmd[i])
 				return (0);
-			while(cmd[i] == ' ')
+			while (cmd[i] == ' ')
 				i++;
-			if(cmd[i] == '|' || cmd[i] == '\0')
+			if (cmd[i] == '|' || cmd[i] == '\0')
 			{
 				printf("bash: syntax error near unexpected token `|'\n");
 				return (0);
