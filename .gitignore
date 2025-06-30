@@ -2,3 +2,5 @@
 *.out
 *.s
 ./minishell
+/.marscode
+/.VScode
