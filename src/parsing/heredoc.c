@@ -3,13 +3,21 @@
 static char *ft_process_heredoc_line(char *content, char *line) {
   char *temp;
   char *new_content;
+  char *line_with_newline;
 
   temp = content;
+  line_with_newline = ft_strjoin(line, "\n");
+  if (!line_with_newline) {
+    return (NULL);
+  }
+  
   if (ft_strlen(content) > 0)
-    new_content = ft_strjoin_with_newline(content, line);
+    new_content = ft_strjoin(content, line_with_newline);
   else
-    new_content = ft_strjoin(line, "\n");
+    new_content = ft_strdup(line_with_newline);
+  
   free(temp);
+  free(line_with_newline);
   return (new_content);
 }
 
