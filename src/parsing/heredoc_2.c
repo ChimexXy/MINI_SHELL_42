@@ -43,3 +43,33 @@ int	ft_preprocess_heredocs(t_cmd *cmds)
 	}
 	return (0);
 }
+char	*ft_create_heredoc_file(char *delimiter)
+{
+	char *content;
+	char *temp_filename;
+	int fd;
+
+	if (!delimiter || !*delimiter)
+		return (NULL);
+	content = ft_read_heredoc_input(delimiter);
+	if (!content)
+		return (NULL);
+	temp_filename = ft_create_temp_filename();
+	if (!temp_filename)
+	{
+		free(content);
+		return (NULL);
+	}
+	fd = open(temp_filename, O_CREAT | O_WRONLY | O_TRUNC, 0600);
+	if (fd == -1)
+	{
+		free(content);
+		free(temp_filename);
+		return (NULL);
+	}
+	if (ft_strlen(content) > 0)
+		write(fd, content, ft_strlen(content));
+	close(fd);
+	free(content);
+	return (temp_filename);
+}

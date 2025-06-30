@@ -1,5 +1,27 @@
 #include "../../include/minishell.h"
 
+char	*ft_get_env_value(char **env, char *key)
+{
+	int		i;
+	int		key_len;
+	char	*value;
+
+	i = 0;
+	if (!key || !env)
+		return (NULL);
+	key_len = ft_strlen(key);
+	while (env[i])
+	{
+		if (ft_strncmp(env[i], key, key_len) == 0 && env[i][key_len] == '=')
+		{
+			value = env[i] + key_len + 1;
+			return (ft_strdup(value));
+		}
+		i++;
+	}
+	return (NULL);
+}
+
 char	**ft_get_path_dirs(char **env)
 {
 	char	*path_env;

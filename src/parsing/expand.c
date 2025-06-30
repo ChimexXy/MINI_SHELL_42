@@ -1,41 +1,5 @@
 #include "../../include/minishell.h"
 
-static int	ft_in_singlea_q(char *s, int pos)
-{
-	int	i;
-	int	in_single;
-	int	in_double;
-
-	in_single = 0;
-	in_double = 0;
-	i = 0;
-	while (i < pos)
-	{
-		if (s[i] == '\'' && !in_double)
-			in_single = !in_single;
-		else if (s[i] == '"' && !in_single)
-			in_double = !in_double;
-		i++;
-	}
-	return (in_single);
-}
-
-char	*ft_get_variable_value(char *var, t_shell *shell)
-{
-	char	*value;
-	char	*exit_stat_str;
-
-	if (ft_strcmp(var, "?") == 0)
-	{
-		exit_stat_str = ft_itoa(shell->exit_status);
-		return (exit_stat_str);
-	}
-	value = ft_get_env_value(shell->env, var);
-	if (value)
-		return (value);
-	return (ft_strdup(""));
-}
-
 static char	*ft_extract_var_name(char *str, int *i)
 {
 	int		start;
@@ -78,35 +42,47 @@ char	*ft_expand_dollar(char *s, int *i, t_shell *shell)
 	return (var_value);
 }
 
+static char	*ft_append_char(char *str, char c)
+{
+	char	*tmp;
+	int		len;
+
+	len = ft_strlen(str);
+	tmp = malloc(len + 2);
+	ft_strlcpy(tmp, str, len + 1);
+	tmp[len] = c;
+	tmp[len + 1] = '\0';
+	free(str);
+	return (tmp);
+}
+
+static char	*ft_handle_dollar_expansion(char *str, int *i, char *result,
+		t_shell *shell)
+{
+	char	*expanded;
+	char	*tmp;
+
+	expanded = ft_expand_dollar(str, i, shell);
+	tmp = ft_strjoin(result, expanded);
+	free(result);
+	free(expanded);
+	return (tmp);
+}
+
 char	*ft_expand_variables(char *str, t_shell *shell)
 {
 	char	*result;
-	char	*expanded;
-	char	*tmp;
 	int		i;
-	int		result_len;
 
 	result = ft_strdup("");
 	i = 0;
 	while (str[i])
 	{
 		if (str[i] == '$' && !ft_in_singlea_q(str, i))
-		{
-			expanded = ft_expand_dollar(str, &i, shell);
-			tmp = ft_strjoin(result, expanded);
-			free(result);
-			free(expanded);
-			result = tmp;
-		}
+			result = ft_handle_dollar_expansion(str, &i, result, shell);
 		else
 		{
-			result_len = ft_strlen(result);
-			tmp = malloc(result_len + 2);
-			ft_strlcpy(tmp, result, result_len + 1);
-			tmp[result_len] = str[i];
-			tmp[result_len + 1] = '\0';
-			free(result);
-			result = tmp;
+			result = ft_append_char(result, str[i]);
 			i++;
 		}
 	}

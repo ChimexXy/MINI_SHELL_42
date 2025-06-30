@@ -111,6 +111,7 @@ char				**ft_copy_env(char **env);
 char				*ft_expand_variables(char *str, t_shell *shell);
 char				*ft_expand_dollar(char *str, int *i, t_shell *shell);
 char				*ft_get_variable_value(char *var, t_shell *shell);
+int					ft_in_singlea_q(char *s, int pos);
 
 /* Quote handling */
 char				*ft_handle_quotes(char *str);
@@ -125,6 +126,8 @@ int					ft_is_executable(char *path);
 int					ft_preprocess_heredocs(t_cmd *cmds);
 char				*ft_create_heredoc_file(char *delimiter);
 void				ft_cleanup_heredoc_file(char *filename);
+char				*ft_create_temp_filename(void);
+char				*ft_read_heredoc_input(char *delimiter);
 
 /* Signal functions */
 void				ft_setup_signals(void);

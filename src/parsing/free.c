@@ -58,3 +58,11 @@ void	ft_cleanup_shell(t_shell *shell)
 	if (shell->cmds)
 		ft_free_cmds(shell->cmds);
 }
+
+void	ft_cleanup_heredoc_file(char *filename)
+{
+	if (filename && access(filename, F_OK) == 0)
+	{
+		unlink(filename);
+	}
+}

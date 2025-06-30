@@ -1,6 +1,6 @@
 /* #include "../../include/minishell.h"
 
-int check_cmd(char *cmd) {
+int	check_cmd(char *cmd) {
   if (!ft_handle_qoutes(cmd))
     return (0);
   else if (!ft_handle_pipe1(cmd))
@@ -21,6 +21,8 @@ int check_cmd(char *cmd) {
 {
         int		i;
         char	c;
+        int	i;
+  int i;
 
         i = 0;
         if (!cmd)
@@ -43,11 +45,8 @@ int check_cmd(char *cmd) {
         }
         return (1);
 } */
-
 /* int	ft_handle_pipe1(char *cmd)
 {
-        int	i;
-
         i = 0;
         while ((cmd[i] >= 9 && cmd[i] <= 13) || cmd[i] == 32)
                 i++;
@@ -70,9 +69,7 @@ int check_cmd(char *cmd) {
         return (1);
 } */
 /*
-int ft_handle_pipe2(char *check_cmd1) {
-  int i;
-
+int	ft_handle_pipe2(char *check_cmd1) {
   i = ft_strlen(check_cmd1) - 1;
   while (i >= 0 && check_cmd1[i] == ' ')
     i--;
@@ -83,7 +80,7 @@ int ft_handle_pipe2(char *check_cmd1) {
   return (1);
 }
 
-int ft_handle_pipe3(char *cmd) {
+int	ft_handle_pipe3(char *cmd) {
   int i;
 
   i = 0;
@@ -104,7 +101,7 @@ int ft_handle_pipe3(char *cmd) {
   return (1);
 }
 
-int ft_handle_redirectin1(char *str) {
+int	ft_handle_redirectin1(char *str) {
   int i;
   int x;
 
@@ -127,7 +124,7 @@ int ft_handle_redirectin1(char *str) {
   return (1);
 }
 
-int ft_handle_redirectin2(char *str) {
+int	ft_handle_redirectin2(char *str) {
   int i;
   int x;
 
