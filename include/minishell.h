@@ -23,6 +23,7 @@
 # define SUCCESS 0
 # define ERROR 1
 # define SYNTAX_ERROR 2
+# define MS_CMD_NOT_FOUND 127
 
 /* Error message macros */
 # define CMD_NOT_FOUND "command not found"
@@ -85,12 +86,15 @@ void				ft_exec_pipe(t_shell *shell, t_cmd *cmds);
 void				ft_exec_external_cmd(t_cmd *cmd, char **env);
 int					ft_setup_redirections(t_redir *redirs);
 int					ft_is_valid_number(char *str);
+int					ft_exec_built_with_redir(t_shell *shell, t_cmd *cmd);
+void				ft_wait_for_child(pid_t pid, t_shell *shell);
+void				ft_handle_no_args(t_shell *shell, t_cmd *cmd);
 
 /* Built-in commands */
 int					ft_is_builtin(char *cmd);
 int					ft_exec_builtin(t_shell *shell, char **args);
 int					ft_builtin_echo(char **args);
-int					ft_builtin_cd(char **args);
+int					ft_builtin_cd(t_shell *shell, char **args);
 int					ft_builtin_pwd(void);
 int					ft_builtin_export(t_shell *shell, char **args);
 int					ft_builtin_unset(t_shell *shell, char **args);
@@ -111,7 +115,6 @@ char				*ft_get_variable_value(char *var, t_shell *shell);
 /* Quote handling */
 char				*ft_handle_quotes(char *str);
 char				ft_check_unclosed_quotes(char *str);
-char				*ft_handle_quote_continuation(char *initial_input);
 
 /* Path resolution */
 char				*ft_find_executable(char *cmd, char **env);
@@ -120,7 +123,8 @@ int					ft_is_executable(char *path);
 
 /* Heredoc functions */
 int					ft_preprocess_heredocs(t_cmd *cmds);
-int					ft_process_heredoc_input(char *delimiter);
+char				*ft_create_heredoc_file(char *delimiter);
+void				ft_cleanup_heredoc_file(char *filename);
 
 /* Signal functions */
 void				ft_setup_signals(void);
@@ -164,12 +168,12 @@ void				ft_print_syntax_error(char *token);
 int					ft_handle_export_error(char *identifier);
 int					ft_is_valid_identifier(char *str);
 
-int check_cmd(char *cmd);
-int	ft_handle_pipe1(char *cmd);
-int	ft_handle_pipe2(char *cmd);
-int	ft_handle_pipe3(char *cmd);
-int	ft_handle_redirectin1(char *str);
-int	ft_handle_redirectin2(char *str);
-int ft_handle_qoutes(char *cmd);
+/* int check_cmd(char *cmd);
+int					ft_handle_pipe1(char *cmd);
+int					ft_handle_pipe2(char *cmd);
+int					ft_handle_pipe3(char *cmd);
+int					ft_handle_redirectin1(char *str);
+int					ft_handle_redirectin2(char *str);
+int	ft_handle_qoutes(char *cmd); */
 
 #endif
