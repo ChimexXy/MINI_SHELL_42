@@ -51,9 +51,14 @@ static int	ft_handle_export_arg(t_shell *shell, char *arg)
 	}
 	else
 	{
+		char *existing_value;
+		
 		key = arg;
-		if (!ft_get_env_value(shell->env, key))
+		existing_value = ft_get_env_value(shell->env, key);
+		if (!existing_value)
 			ft_set_env_value(shell, key, "");
+		else
+			free(existing_value);
 	}
 	return (0);
 }

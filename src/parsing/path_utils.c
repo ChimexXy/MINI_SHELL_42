@@ -43,6 +43,7 @@ char	**ft_get_path_dirs(char **env)
 	if (!path_env)
 		return (NULL);
 	dirs = ft_split(path_env, ':');
+	free(path_env);
 	return (dirs);
 }
 

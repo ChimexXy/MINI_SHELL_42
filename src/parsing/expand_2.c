@@ -44,6 +44,6 @@ char	*ft_get_variable_value(char *var, t_shell *shell)
 	}
 	value = ft_get_env_value(shell->env, var);
 	if (value)
-		return (ft_strdup(value));
+		return (value);
 	return (ft_strdup(""));
 }
