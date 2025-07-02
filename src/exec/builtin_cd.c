@@ -20,9 +20,7 @@ static int	ft_cd_handle_path(char **args, char **path)
 		*path = home;
 	}
 	else
-	{
 		*path = args[1];
-	}
 	return (0);
 }
 
@@ -48,9 +46,7 @@ int	ft_builtin_cd(t_shell *shell, char **args)
 	char	old_pwd[MAX_PATH];
 
 	if (getcwd(old_pwd, sizeof(old_pwd)) == NULL)
-	{
 		old_pwd[0] = '\0';
-	}
 	if (ft_cd_handle_path(args, &path) != 0)
 		return (1);
 	if (ft_cd_change_dir(path) != 0)

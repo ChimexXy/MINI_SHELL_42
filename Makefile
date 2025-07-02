@@ -38,6 +38,7 @@ SOURCES = $(SRCDIR)/exec/executor.c \
           $(SRCDIR)/parsing/handle_qoutes.c \
           $(SRCDIR)/parsing/token_utils.c \
           $(SRCDIR)/utils/error_handling.c \
+          $(SRCDIR)/utils/error_handeling_2.c \
 
 OBJECTS = $(SOURCES:.c=.o)
 
