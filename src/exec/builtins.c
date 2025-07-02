@@ -40,7 +40,7 @@ int	ft_exec_builtin(t_shell *shell, char **args)
 	if (ft_strcmp(args[0], "cd") == 0)
 		return (ft_builtin_cd(shell, args));
 	if (ft_strcmp(args[0], "pwd") == 0)
-		return (ft_builtin_pwd());
+		return (ft_builtin_pwd(args));
 	if (ft_strcmp(args[0], "export") == 0)
 		return (ft_builtin_export(shell, args));
 	if (ft_strcmp(args[0], "unset") == 0)

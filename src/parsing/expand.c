@@ -17,6 +17,7 @@ static char	*ft_extract_var_name(char *str, int *i)
 	int		start;
 	int		len;
 	char	*var_name;
+	char	quote_char;
 
 	start = *i;
 	if (str[*i] == '?')
@@ -24,11 +25,31 @@ static char	*ft_extract_var_name(char *str, int *i)
 		(*i)++;
 		return (ft_strdup("?"));
 	}
+	if (str[*i] == '"' || str[*i] == '\'')
+	{
+		quote_char = str[*i];
+		(*i)++; 
+		start = *i;
+		while (str[*i] && str[*i] != quote_char)
+			(*i)++;
+		if (str[*i] == quote_char)
+		{
+			len = *i - start;
+			(*i)++; 
+			var_name = malloc(len + 1);
+			ft_strlcpy(var_name, str + start, len + 1);
+			var_name[len] = '\0';
+			return (var_name);
+		}
+		return (NULL); 
+	}
 	if (!(ft_isalpha(str[*i]) || str[*i] == '_'))
-		return (NULL);
+		return (ft_strdup(""));
 	while (str[*i] && (ft_isalnum(str[*i]) || str[*i] == '_'))
 		(*i)++;
 	len = *i - start;
+	if (len == 0)
+		return (ft_strdup(""));
 	var_name = malloc(len + 1);
 	ft_strlcpy(var_name, str + start, len + 1);
 	var_name[len] = '\0';
@@ -40,12 +61,26 @@ char	*ft_expand_dollar(char *s, int *i, t_shell *shell)
 	char	*var_name;
 	char	*var_value;
 	int		start;
+	int		is_quoted;
 
 	start = *i;
 	(*i)++;
+	is_quoted = (s[*i] == '"' || s[*i] == '\'');
 	var_name = ft_extract_var_name(s, i);
 	if (!var_name)
 	{
+		*i = start + 1;
+		return (ft_strdup("$"));
+	}
+	if (is_quoted)
+	{
+		var_value = ft_strdup(var_name);
+		free(var_name);
+		return (var_value);
+	}
+	if (ft_strlen(var_name) == 0)
+	{
+		free(var_name);
 		*i = start + 1;
 		return (ft_strdup("$"));
 	}
@@ -90,7 +125,12 @@ char	*ft_expand_variables(char *str, t_shell *shell)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == '$' && !ft_in_singlea_q(str, i))
+		if (str[i] == '\\' && str[i + 1] == '$' && !ft_in_singlea_q(str, i))
+		{
+			result = ft_append_char(result, '$');
+			i += 2;
+		}
+		else if (str[i] == '$' && !ft_in_singlea_q(str, i))
 			result = ft_handle_dollar_expansion(str, &i, result, shell);
 		else
 		{

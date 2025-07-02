@@ -12,9 +12,10 @@
 
 #include "../../include/minishell.h"
 
-static int	ft_cd_handle_path(char **args, char **path)
+static int	ft_cd_handle_path(char **args, char **path, t_shell *shell)
 {
 	char	*home;
+	char	*oldpwd;
 
 	if (args[1] && args[2])
 	{
@@ -23,13 +24,24 @@ static int	ft_cd_handle_path(char **args, char **path)
 	}
 	if (!args[1])
 	{
-		home = getenv("HOME");
+		home = ft_get_env_value(shell->env, "HOME");
 		if (!home)
 		{
 			ft_print_command_error("cd", "HOME not set");
 			return (1);
 		}
 		*path = home;
+	}
+	else if (ft_strcmp(args[1], "-") == 0)
+	{
+		oldpwd = ft_get_env_value(shell->env, "OLDPWD");
+		if (!oldpwd)
+		{
+			ft_print_command_error("cd", "OLDPWD not set");
+			return (1);
+		}
+		*path = oldpwd;
+		return (2); 
 	}
 	else
 		*path = args[1];
@@ -56,10 +68,12 @@ int	ft_builtin_cd(t_shell *shell, char **args)
 	char	*path;
 	char	cwd[MAX_PATH];
 	char	old_pwd[MAX_PATH];
+	int		path_result;
 
 	if (getcwd(old_pwd, sizeof(old_pwd)) == NULL)
 		old_pwd[0] = '\0';
-	if (ft_cd_handle_path(args, &path) != 0)
+	path_result = ft_cd_handle_path(args, &path, shell);
+	if (path_result == 1)
 		return (1);
 	if (ft_cd_change_dir(path) != 0)
 		return (1);
@@ -68,6 +82,8 @@ int	ft_builtin_cd(t_shell *shell, char **args)
 		if (*old_pwd)
 			ft_set_env_value(shell, "OLDPWD", old_pwd);
 		ft_set_env_value(shell, "PWD", cwd);
+		if (path_result == 2)
+			ft_putendl_fd(cwd, 1);
 	}
 	return (0);
 }

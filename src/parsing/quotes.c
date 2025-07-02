@@ -12,61 +12,58 @@
 
 #include "../../include/minishell.h"
 
-char	ft_check_unclosed_quotes(char *str)
-{
-	int		i;
-	char	quote_char;
+char ft_check_unclosed_quotes(char *str) {
+  int i;
+  char quote_char;
 
-	if (!str)
-		return (0);
-	i = 0;
-	quote_char = 0;
-	while (str[i])
-	{
-		if (!quote_char && (str[i] == '\'' || str[i] == '"'))
-		{
-			quote_char = str[i];
-		}
-		else if (quote_char && str[i] == quote_char)
-		{
-			quote_char = 0;
-		}
-		i++;
-	}
-	return (quote_char);
+  if (!str)
+    return (0);
+  i = 0;
+  quote_char = 0;
+  while (str[i]) {
+    if (!quote_char && (str[i] == '\'' || str[i] == '"')) {
+      quote_char = str[i];
+    } else if (quote_char && str[i] == quote_char) {
+      quote_char = 0;
+    }
+    i++;
+  }
+  return (quote_char);
 }
 
-char	*ft_handle_quotes(char *str)
-{
-	char	*result;
-	int		i;
-	int		j;
-	char	quote_char;
+char *ft_handle_quotes(char *str) {
+  char *result;
+  int i;
+  int j;
+  char quote_char;
 
-	if (!str)
-		return (NULL);
-	result = malloc(ft_strlen(str) + 1);
-	if (!result)
-		return (NULL);
-	i = 0;
-	j = 0;
-	quote_char = 0;
-	while (str[i])
-	{
-		if (!quote_char && (str[i] == '\'' || str[i] == '"'))
-		{
-			quote_char = str[i];
-			i++;
-			continue ;
-		}
-		if (quote_char && str[i] == quote_char)
-		{
-			quote_char = 0;
-			i++;
-			continue ;
-		}
-		result[j++] = str[i++];
-	}
-	result[j] = '\0';
-	return (result);
+  if (!str)
+    return (NULL);
+  result = malloc(ft_strlen(str) + 1);
+  if (!result)
+    return (NULL);
+  i = 0;
+  j = 0;
+  quote_char = 0;
+  while (str[i]) {
+    if (str[i] == '\\' && str[i + 1] &&
+        (str[i + 1] == '"' || str[i + 1] == '\'')) {
+      result[j++] = str[i + 1];
+      i += 2;
+      continue;
+    }
+    if (!quote_char && (str[i] == '\'' || str[i] == '"')) {
+      quote_char = str[i];
+      i++;
+      continue;
+    }
+    if (quote_char && str[i] == quote_char) {
+      quote_char = 0;
+      i++;
+      continue;
+    }
+    result[j++] = str[i++];
+  }
+  result[j] = '\0';
+  return (result);
 }

@@ -80,7 +80,7 @@ char	*ft_strjoin_with_newline(char *s1, char *s2)
 		return (NULL);
 	len1 = ft_strlen(s1);
 	len2 = ft_strlen(s2);
-	result = malloc(len1 + len2 + 2); // +2 for newline and null terminator
+	result = malloc(len1 + len2 + 2); 
 	if (!result)
 		return (NULL);
 	i = 0;

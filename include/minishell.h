@@ -107,7 +107,7 @@ int					ft_is_builtin(char *cmd);
 int					ft_exec_builtin(t_shell *shell, char **args);
 int					ft_builtin_echo(char **args);
 int					ft_builtin_cd(t_shell *shell, char **args);
-int					ft_builtin_pwd(void);
+int					ft_builtin_pwd(char **args);
 int					ft_builtin_export(t_shell *shell, char **args);
 int					ft_builtin_unset(t_shell *shell, char **args);
 int					ft_builtin_env(t_shell *shell);
