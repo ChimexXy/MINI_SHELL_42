@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   token_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mozahnou <mozahnou@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/02 10:42:50 by mozahnou          #+#    #+#             */
+/*   Updated: 2025/07/02 10:58:10 by mozahnou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 int	ft_skip_space(char *input, int i)
@@ -18,7 +30,7 @@ t_token	*ft_creat_token(char *value, t_token_type type)
 	token->type = type;
 	token->next = NULL;
 	return (token);
-}
+} 
 
 void	ft_add_token(t_token **tokens, t_token *new_token)
 {

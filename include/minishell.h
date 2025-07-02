@@ -1,57 +1,69 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mozahnou <mozahnou@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/02 11:37:57 by mozahnou          #+#    #+#             */
+/*   Updated: 2025/07/02 11:40:03 by mozahnou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
-#define MINISHELL_H
+# define MINISHELL_H
 
-#include "../src/utils/libft/libft.h"
-#include <dirent.h>
-#include <errno.h>
-#include <fcntl.h>
-#include <readline/history.h>
-#include <readline/readline.h>
-#include <signal.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/ioctl.h>
-#include <sys/stat.h>
-#include <sys/wait.h>
-#include <termios.h>
-#include <unistd.h>
+# include "../src/utils/libft/libft.h"
+# include <dirent.h>
+# include <errno.h>
+# include <fcntl.h>
+# include <readline/history.h>
+# include <readline/readline.h>
+# include <signal.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
+# include <sys/ioctl.h>
+# include <sys/stat.h>
+# include <sys/wait.h>
+# include <termios.h>
+# include <unistd.h>
 
-#define MAX_PATH 1024
+# define MAX_PATH 1024
 
 /* Custom error codes */
-#define SUCCESS 0
+# define SUCCESS 0
 #define ERROR 1
-#define SYNTAX_ERROR 2
-#define MS_CMD_NOT_FOUND 127
+# define SYNTAX_ERROR 2
+# define MS_CMD_NOT_FOUND 127
 
 /* Error message macros */
-#define CMD_NOT_FOUND "command not found"
-#define NO_SUCH_FILE "No such file or directory"
-#define PERMISSION_DENIED "Permission denied"
-#define NOT_A_DIRECTORY "Not a directory"
-#define TOO_MANY_ARGS "too many arguments"
-#define INVALID_IDENTIFIER "not a valid identifier"
-#define NUMERIC_REQUIRED "numeric argument required"
-#define MS_SYNTAX_ERROR "syntax error near unexpected token"
-#define UNCLOSED_QUOTE "unexpected EOF while looking for matching"
+# define CMD_NOT_FOUND "command not found"
+# define NO_SUCH_FILE "No such file or directory"
+# define PERMISSION_DENIED "Permission denied"
+# define NOT_A_DIRECTORY "Not a directory"
+# define TOO_MANY_ARGS "too many arguments"
+# define INVALID_IDENTIFIER "not a valid identifier"
+# define NUMERIC_REQUIRED "numeric argument required"
+# define MS_SYNTAX_ERROR "syntax error near unexpected token"
+# define UNCLOSED_QUOTE "unexpected EOF while looking for matching"
 
 /* Token types */
 typedef enum e_token_type {
-  TOKEN_WORD,
-  TOKEN_PIPE,
-  TOKEN_REDIR_IN,
-  TOKEN_REDIR_OUT,
-  TOKEN_REDIR_APPEND,
-  TOKEN_HEREDOC,
-} t_token_type;
+	TOKEN_WORD,
+	TOKEN_PIPE,
+	TOKEN_REDIR_IN,
+	TOKEN_REDIR_OUT,
+	TOKEN_REDIR_APPEND,
+	TOKEN_HEREDOC,
+}	t_token_type;
 
 /* Token structure */
 typedef struct s_token {
-  char *value;
-  t_token_type type;
-  struct s_token *next;
-} t_token;
+	char *value;
+	t_token_type type;
+	struct s_token *next;
+}	t_token;
 
 /* Redirection structure */
 typedef struct s_redir {
@@ -166,12 +178,5 @@ int ft_handle_export_error(char *identifier);
 int ft_is_valid_identifier(char *str);
 void ft_print_exit_error(char *arg, char *message);
 
-/* int check_cmd(char *cmd);
-int					ft_handle_pipe1(char *cmd);
-int					ft_handle_pipe2(char *cmd);
-int					ft_handle_pipe3(char *cmd);
-int					ft_handle_redirectin1(char *str);
-int					ft_handle_redirectin2(char *str);
-int	ft_handle_qoutes(char *cmd); */
 
 #endif
