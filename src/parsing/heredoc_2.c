@@ -6,7 +6,7 @@
 /*   By: mozahnou <mozahnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 10:42:29 by mozahnou          #+#    #+#             */
-/*   Updated: 2025/07/02 10:42:29 by mozahnou         ###   ########.fr       */
+/*   Updated: 2025/07/02 21:23:34 by mohkhald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ char	*ft_create_heredoc_file(char *delimiter)
 	char	*content;
 	char	*temp_filename;
 	int		fd;
+	int		bytes_written;
 
 	if (!delimiter || !*delimiter)
 		return (NULL);
@@ -81,7 +82,18 @@ char	*ft_create_heredoc_file(char *delimiter)
 		return (NULL);
 	}
 	if (ft_strlen(content) > 0)
-		write(fd, content, ft_strlen(content));
+	{
+		bytes_written = write(fd, content, ft_strlen(content));
+		if (bytes_written == -1)
+		{
+			perror("write");
+			close(fd);
+			unlink(temp_filename);
+			free(content);
+			free(temp_filename);
+			return (NULL);
+		}
+	}
 	close(fd);
 	free(content);
 	return (temp_filename);
