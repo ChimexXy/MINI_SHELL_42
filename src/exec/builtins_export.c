@@ -34,7 +34,7 @@ static int	ft_handle_export_arg(t_shell *shell, char *arg)
 	char	*key;
 	char	*value;
 	char	*equal_pos;
-		char *existing_value;
+	char	*existing_value;
 
 	if (!ft_is_valid_identifier(arg))
 	{
