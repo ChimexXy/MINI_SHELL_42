@@ -32,7 +32,7 @@ static void	ft_pars_args(t_cmd *cmd, t_token **tokens, t_shell *shell)
 			current = current->next;
 		}
 		else if (current->type >= TOKEN_REDIR_IN
-			&& current->type <= TOKEN_HEREDOC)
+				&& current->type <= TOKEN_HEREDOC)
 			ft_process_redir_token(cmd, &current, shell);
 		else
 			current = current->next;

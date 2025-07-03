@@ -62,10 +62,10 @@ typedef enum e_token_type
 /* just for norminette*/
 typedef struct s_quote_state
 {
-	int		i;
-	int		j;
-	char	quote_char;
-}	t_quote_state;
+	int				i;
+	int				j;
+	char			quote_char;
+}					t_quote_state;
 
 /* Token structure */
 typedef struct s_token
@@ -103,12 +103,12 @@ typedef struct s_shell
 /* just for norminette*/
 typedef struct s_expand
 {
-	char	*var_name;
-	int		is_quoted;
-	int		start;
-	int		*i;
-	t_shell	*shell;
-}	t_expand;
+	char			*var_name;
+	int				is_quoted;
+	int				start;
+	int				*i;
+	t_shell			*shell;
+}					t_expand;
 
 /* Executor functions */
 void				ft_exec_cmds(t_shell *shell, t_cmd *cmds);
@@ -199,8 +199,8 @@ char				*ft_strjoin_with_newline(char *s1, char *s2);
 
 /* Command creation functions */
 t_cmd				*ft_creat_cmd(void);
-void				ft_add_redir(t_cmd *cmd, t_token_type type,
-						char *file, int check_flag);
+void				ft_add_redir(t_cmd *cmd, t_token_type type, char *file,
+						int check_flag);
 
 /* Shell management functions */
 void				ft_init_shell(t_shell *shell, char **envp);

@@ -49,7 +49,8 @@ static int	ft_check_delimiter(char *line, char *delimiter)
 	if (!line)
 	{
 		printf("\nminishell: warning: here-document delimited by end-of-file "
-			"(wanted `%s')\n", delimiter);
+				"(wanted `%s')\n",
+				delimiter);
 		return (1);
 	}
 	if (ft_strcmp(line, delimiter) == 0)

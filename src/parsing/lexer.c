@@ -32,7 +32,7 @@ static int	ft_find_word_end(char *input, int start)
 		else if (quote && input[i] == quote)
 			quote = 0;
 		else if (!quote && (input[i] == ' ' || input[i] == '\t'
-				|| input[i] == '<' || input[i] == '>' || input[i] == '|'))
+					|| input[i] == '<' || input[i] == '>' || input[i] == '|'))
 			break ;
 		i++;
 	}

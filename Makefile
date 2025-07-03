@@ -1,6 +1,6 @@
 NAME = minishell
 
-CC = gcc
+CC = cc
 CFLAGS = -Wall -Wextra -Werror -Iinclude -I/Users/mozahnou/.brew/opt/readline/include
 LDFLAGS = -L/Users/mozahnou/.brew/opt/readline/lib -lreadline
 

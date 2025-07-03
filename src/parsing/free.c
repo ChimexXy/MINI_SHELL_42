@@ -25,7 +25,7 @@ void	ft_free_tokens(t_token *tokens)
 	}
 }
 
-void	ft_free_redirs(t_redir *redirs)
+static void	ft_free_redirs(t_redir *redirs)
 {
 	t_redir	*tmp_redir;
 
@@ -33,8 +33,8 @@ void	ft_free_redirs(t_redir *redirs)
 	{
 		tmp_redir = redirs;
 		redirs = redirs->next;
-		if (tmp_redir->file
-			&& ft_strncmp(tmp_redir->file, "/tmp/minishell_heredoc_", 23) == 0)
+		if (tmp_redir->file &&
+			ft_strncmp(tmp_redir->file, "/tmp/minishell_heredoc_", 23) == 0)
 			ft_cleanup_heredoc_file(tmp_redir->file);
 		free(tmp_redir->file);
 		free(tmp_redir);

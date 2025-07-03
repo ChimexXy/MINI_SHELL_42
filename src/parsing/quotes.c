@@ -39,8 +39,8 @@ char	ft_check_unclosed_quotes(char *str)
 static int	ft_handle_escaped_quote(const char *str, char *result,
 		t_quote_state *state)
 {
-	if (str[state->i] == '\\' && str[state->i + 1]
-		&& (str[state->i + 1] == '\'' || str[state->i + 1] == '"'))
+	if (str[state->i] == '\\' && str[state->i + 1] &&
+		(str[state->i + 1] == '\'' || str[state->i + 1] == '"'))
 	{
 		result[state->j++] = str[state->i + 1];
 		state->i += 2;
@@ -67,7 +67,7 @@ static void	process_quotes(const char *str, char *result, t_quote_state *state)
 	}
 }
 
-int	ft_has_quotes(char *s)
+static int	ft_has_quotes(char *s)
 {
 	while (*s)
 	{
