@@ -6,7 +6,7 @@
 /*   By: mozahnou <mozahnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 10:41:54 by mozahnou          #+#    #+#             */
-/*   Updated: 2025/07/02 10:41:54 by mozahnou         ###   ########.fr       */
+/*   Updated: 2025/07/03 05:28:37 by mozahnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ static void	ft_restore_fds(int saved_stdout, int saved_stdin)
 
 void	ft_handle_no_args(t_shell *shell, t_cmd *cmd)
 {
-	int saved_stdout, saved_stdin;
+	int	saved_stdout;
+	int	saved_stdin;
+
 	if (cmd->redirs)
 	{
 		ft_save_fds(&saved_stdout, &saved_stdin);

@@ -90,9 +90,7 @@ int	ft_atol(char *str, long *result)
 			return (0);
 		prev = num;
 		num = num * 10 + (str[i] - '0');
-		if (num < prev)
-			return (0);
-		if (sign == 1 && num > LONG_MAX)
+		if ((num < prev) || (sign == 1 && num > LONG_MAX))
 			return (0);
 		if (sign == -1 && num > LONG_MAX)
 			return (0);

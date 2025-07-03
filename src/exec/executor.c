@@ -6,7 +6,7 @@
 /*   By: mozahnou <mozahnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 10:41:58 by mozahnou          #+#    #+#             */
-/*   Updated: 2025/07/02 10:41:58 by mozahnou         ###   ########.fr       */
+/*   Updated: 2025/07/03 05:27:24 by mozahnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static void	ft_handle_external_cmd(t_shell *shell, t_cmd *cmd)
 		shell->exit_status = 0;
 	}
 }
+
 void	ft_wait_for_processes(t_shell *shell, pid_t last_pid)
 {
 	int	status;

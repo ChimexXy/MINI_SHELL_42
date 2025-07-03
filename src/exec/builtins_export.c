@@ -6,7 +6,7 @@
 /*   By: mozahnou <mozahnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 10:41:31 by mozahnou          #+#    #+#             */
-/*   Updated: 2025/07/02 10:41:31 by mozahnou         ###   ########.fr       */
+/*   Updated: 2025/07/03 05:27:11 by mozahnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ int	ft_is_valid_identifier(char *str)
 			return (0);
 		i++;
 	}
-	if (ft_strchr(str, ';') || ft_strchr(str, '!') ||
-		(ft_strchr(str, '=') && ft_strchr(ft_strchr(str, '=') + 1, '=')))
+	if (ft_strchr(str, ';') || ft_strchr(str, '!')
+		|| (ft_strchr(str, '=') && ft_strchr(ft_strchr(str, '=') + 1, '=')))
 		return (0);
 	return (1);
 }
@@ -37,8 +37,8 @@ static int	ft_validate_quoted_arg(char *arg)
 {
 	char	*unquoted;
 
-	if ((arg[0] == '"' && arg[ft_strlen(arg) - 1] == '"') ||
-		(arg[0] == '\'' && arg[ft_strlen(arg) - 1] == '\''))
+	if ((arg[0] == '"' && arg[ft_strlen(arg) - 1] == '"')
+		|| (arg[0] == '\'' && arg[ft_strlen(arg) - 1] == '\''))
 	{
 		unquoted = ft_substr(arg, 1, ft_strlen(arg) - 2);
 		if (!ft_is_valid_identifier(unquoted))

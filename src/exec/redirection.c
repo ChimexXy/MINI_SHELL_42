@@ -6,7 +6,7 @@
 /*   By: mozahnou <mozahnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 10:42:03 by mozahnou          #+#    #+#             */
-/*   Updated: 2025/07/02 10:42:03 by mozahnou         ###   ########.fr       */
+/*   Updated: 2025/07/03 05:28:42 by mozahnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,13 @@ int	ft_setup_redirections(t_redir *redirs)
 		else if (current->type == TOKEN_REDIR_OUT)
 		{
 			if (ft_handle_outp_red(current->file,
-									O_WRONLY | O_CREAT | O_TRUNC) == -1)
+					O_WRONLY | O_CREAT | O_TRUNC) == -1)
 				return (-1);
 		}
 		else if (current->type == TOKEN_REDIR_APPEND)
 		{
 			if (ft_handle_outp_red(current->file,
-									O_WRONLY | O_CREAT | O_APPEND) == -1)
+					O_WRONLY | O_CREAT | O_APPEND) == -1)
 				return (-1);
 		}
 		current = current->next;
