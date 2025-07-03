@@ -12,37 +12,13 @@
 
 #include "../../include/minishell.h"
 
-static char	*ft_extract_var_name(char *str, int *i)
+static char	*ft_extract_unquoted_var(char *str, int *i)
 {
 	int		start;
 	int		len;
 	char	*var_name;
-	char	quote_char;
 
 	start = *i;
-	if (str[*i] == '?')
-	{
-		(*i)++;
-		return (ft_strdup("?"));
-	}
-	if (str[*i] == '"' || str[*i] == '\'')
-	{
-		quote_char = str[*i];
-		(*i)++; 
-		start = *i;
-		while (str[*i] && str[*i] != quote_char)
-			(*i)++;
-		if (str[*i] == quote_char)
-		{
-			len = *i - start;
-			(*i)++; 
-			var_name = malloc(len + 1);
-			ft_strlcpy(var_name, str + start, len + 1);
-			var_name[len] = '\0';
-			return (var_name);
-		}
-		return (NULL); 
-	}
 	if (!(ft_isalpha(str[*i]) || str[*i] == '_'))
 		return (ft_strdup(""));
 	while (str[*i] && (ft_isalnum(str[*i]) || str[*i] == '_'))
@@ -54,6 +30,18 @@ static char	*ft_extract_var_name(char *str, int *i)
 	ft_strlcpy(var_name, str + start, len + 1);
 	var_name[len] = '\0';
 	return (var_name);
+}
+
+static char	*ft_extract_var_name(char *str, int *i)
+{
+	if (str[*i] == '?')
+	{
+		(*i)++;
+		return (ft_strdup("?"));
+	}
+	if (str[*i] == '"' || str[*i] == '\'')
+		return (ft_extract_quoted_var(str, i));
+	return (ft_extract_unquoted_var(str, i));
 }
 
 char	*ft_expand_dollar(char *s, int *i, t_shell *shell)
@@ -100,19 +88,6 @@ static char	*ft_append_char(char *str, char c)
 	tmp[len] = c;
 	tmp[len + 1] = '\0';
 	free(str);
-	return (tmp);
-}
-
-static char	*ft_handle_dollar_expansion(char *str, int *i, char *result,
-		t_shell *shell)
-{
-	char	*expanded;
-	char	*tmp;
-
-	expanded = ft_expand_dollar(str, i, shell);
-	tmp = ft_strjoin(result, expanded);
-	free(result);
-	free(expanded);
 	return (tmp);
 }
 

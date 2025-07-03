@@ -32,19 +32,9 @@ static int	ft_handle_empty_input(char *input)
 static void	ft_process_input(t_shell *shell, char *input)
 {
 	t_token	*tokens;
-	char	unclosed_quote;
 
-	unclosed_quote = ft_check_unclosed_quotes(input);
-	if (unclosed_quote)
-	{
-		ft_putstr_fd("minishell: ", STDERR_FILENO);
-		ft_putstr_fd(UNCLOSED_QUOTE, STDERR_FILENO);
-		ft_putchar_fd(' ', STDERR_FILENO);
-		ft_putchar_fd(unclosed_quote, STDERR_FILENO);
-		ft_putchar_fd('\n', STDERR_FILENO);
-		shell->exit_status = SYNTAX_ERROR;
+	if (!ft_validate_input(shell, input))
 		return ;
-	}
 	tokens = ft_tokenize(input);
 	if (tokens)
 	{

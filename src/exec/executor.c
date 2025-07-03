@@ -35,6 +35,21 @@ static void	ft_handle_external_cmd(t_shell *shell, t_cmd *cmd)
 		shell->exit_status = 0;
 	}
 }
+void	ft_wait_for_processes(t_shell *shell, pid_t last_pid)
+{
+	int	status;
+
+	while (wait(&status) > 0)
+	{
+		if (waitpid(last_pid, &status, WNOHANG) == last_pid)
+		{
+			if (WIFEXITED(status))
+				shell->exit_status = WEXITSTATUS(status);
+			else
+				shell->exit_status = 128 + WTERMSIG(status);
+		}
+	}
+}
 
 void	ft_exec_sing_cmd(t_shell *shell, t_cmd *cmd)
 {

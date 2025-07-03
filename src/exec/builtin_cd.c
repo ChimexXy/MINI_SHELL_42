@@ -14,35 +14,15 @@
 
 static int	ft_cd_handle_path(char **args, char **path, t_shell *shell)
 {
-	char	*home;
-	char	*oldpwd;
-
 	if (args[1] && args[2])
 	{
 		ft_print_command_error("cd", TOO_MANY_ARGS);
 		return (1);
 	}
 	if (!args[1])
-	{
-		home = ft_get_env_value(shell->env, "HOME");
-		if (!home)
-		{
-			ft_print_command_error("cd", "HOME not set");
-			return (1);
-		}
-		*path = home;
-	}
+		return (ft_cd_handle_home(path, shell));
 	else if (ft_strcmp(args[1], "-") == 0)
-	{
-		oldpwd = ft_get_env_value(shell->env, "OLDPWD");
-		if (!oldpwd)
-		{
-			ft_print_command_error("cd", "OLDPWD not set");
-			return (1);
-		}
-		*path = oldpwd;
-		return (2); 
-	}
+		return (ft_cd_handle_oldpwd(path, shell));
 	else
 		*path = args[1];
 	return (0);
@@ -63,20 +43,10 @@ static int	ft_cd_change_dir(char *path)
 	return (0);
 }
 
-int	ft_builtin_cd(t_shell *shell, char **args)
+static int	ft_cd_update_env(t_shell *shell, char *old_pwd, int path_result)
 {
-	char	*path;
 	char	cwd[MAX_PATH];
-	char	old_pwd[MAX_PATH];
-	int		path_result;
 
-	if (getcwd(old_pwd, sizeof(old_pwd)) == NULL)
-		old_pwd[0] = '\0';
-	path_result = ft_cd_handle_path(args, &path, shell);
-	if (path_result == 1)
-		return (1);
-	if (ft_cd_change_dir(path) != 0)
-		return (1);
 	if (getcwd(cwd, sizeof(cwd)) != NULL)
 	{
 		if (*old_pwd)
@@ -86,4 +56,28 @@ int	ft_builtin_cd(t_shell *shell, char **args)
 			ft_putendl_fd(cwd, 1);
 	}
 	return (0);
+}
+
+int	ft_builtin_cd(t_shell *shell, char **args)
+{
+	char	*path;
+	char	*allocated_path;
+	char	old_pwd[MAX_PATH];
+	int		path_result;
+	int		result;
+
+	allocated_path = NULL;
+	if (getcwd(old_pwd, sizeof(old_pwd)) == NULL)
+		old_pwd[0] = '\0';
+	path_result = ft_cd_handle_path(args, &path, shell);
+	if (path_result == 1)
+		return (1);
+	if (!args[1] || ft_strcmp(args[1], "-") == 0)
+		allocated_path = path;
+	result = ft_cd_change_dir(path);
+	if (allocated_path)
+		free(allocated_path);
+	if (result != 0)
+		return (1);
+	return (ft_cd_update_env(shell, old_pwd, path_result));
 }

@@ -22,6 +22,7 @@ SOURCES = $(SRCDIR)/exec/executor.c \
           $(SRCDIR)/exec/builtins_exit_utils.c \
           $(SRCDIR)/exec/builtin_echo.c \
           $(SRCDIR)/exec/builtin_cd.c \
+          $(SRCDIR)/exec/builtin_cd_utils.c \
           $(SRCDIR)/parsing/heredoc.c \
           $(SRCDIR)/parsing/heredoc_2.c \
           $(SRCDIR)/parsing/path.c \

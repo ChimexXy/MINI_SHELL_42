@@ -79,7 +79,6 @@ void	ft_exec_pipe(t_shell *shell, t_cmd *cmds)
 	int		prev_fd;
 	t_cmd	*current;
 	pid_t	last_pid;
-	int		status;
 
 	prev_fd = -1;
 	current = cmds;
@@ -92,14 +91,5 @@ void	ft_exec_pipe(t_shell *shell, t_cmd *cmds)
 			prev_fd = pipfd[0];
 		current = current->next;
 	}
-	while (wait(&status) > 0)
-	{
-		if (waitpid(last_pid, &status, WNOHANG) == last_pid)
-		{
-			if (WIFEXITED(status))
-				shell->exit_status = WEXITSTATUS(status);
-			else
-				shell->exit_status = 128 + WTERMSIG(status);
-		}
-	}
+	ft_wait_for_processes(shell, last_pid);
 }
