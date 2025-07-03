@@ -6,7 +6,7 @@
 /*   By: mozahnou <mozahnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 10:42:47 by mozahnou          #+#    #+#             */
-/*   Updated: 2025/07/03 07:24:07 by mozahnou         ###   ########.fr       */
+/*   Updated: 2025/07/03 21:47:24 by mozahnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,18 @@ static void	process_quotes(const char *str, char *result, t_quote_state *state)
 	}
 }
 
-char	*ft_handle_quotes(char *str)
+int	ft_has_quotes(char *s)
+{
+	while (*s)
+	{
+		if (*s == '\'' || *s == '"')
+			return (1);
+		s++;
+	}
+	return (0);
+}
+
+char	*ft_handle_quotes(char *str, int *check_flag)
 {
 	char			*result;
 	t_quote_state	state;
@@ -75,6 +86,7 @@ char	*ft_handle_quotes(char *str)
 	state.i = 0;
 	state.j = 0;
 	state.quote_char = 0;
+	*check_flag = ft_has_quotes(str);
 	if (!str)
 		return (NULL);
 	result = malloc(ft_strlen(str) + 1);

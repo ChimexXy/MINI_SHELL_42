@@ -6,13 +6,13 @@
 /*   By: mozahnou <mozahnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 10:42:29 by mozahnou          #+#    #+#             */
-/*   Updated: 2025/07/03 07:18:33 by mozahnou         ###   ########.fr       */
+/*   Updated: 2025/07/03 21:39:57 by mozahnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static int	ft_process_cmd_heredocs(t_cmd *cmd)
+static int	ft_process_cmd_heredocs(t_cmd *cmd, t_shell *shell)
 {
 	t_redir	*redir;
 
@@ -21,7 +21,7 @@ static int	ft_process_cmd_heredocs(t_cmd *cmd)
 	{
 		if (redir->type == TOKEN_HEREDOC)
 		{
-			if (ft_process_heredoc_redir(redir) == -1)
+			if (ft_process_heredoc_redir(redir, shell) == -1)
 				return (-1);
 		}
 		redir = redir->next;
@@ -29,14 +29,14 @@ static int	ft_process_cmd_heredocs(t_cmd *cmd)
 	return (0);
 }
 
-int	ft_preprocess_heredocs(t_cmd *cmds)
+int	ft_preprocess_heredocs(t_cmd *cmds, t_shell *shell)
 {
 	t_cmd	*current;
 
 	current = cmds;
 	while (current)
 	{
-		if (ft_process_cmd_heredocs(current) == -1)
+		if (ft_process_cmd_heredocs(current, shell) == -1)
 			return (-1);
 		current = current->next;
 	}
@@ -66,7 +66,7 @@ static int	ft_open_temp_file(char *temp_filename)
 	return (open(temp_filename, O_CREAT | O_WRONLY | O_TRUNC, 0600));
 }
 
-char	*ft_create_heredoc_file(char *delimiter)
+char	*ft_create_heredoc_file(char *delimiter, t_shell *shell, int qouted)
 {
 	char	*content;
 	char	*temp_filename;
@@ -74,7 +74,7 @@ char	*ft_create_heredoc_file(char *delimiter)
 
 	if (!delimiter || !*delimiter)
 		return (NULL);
-	content = ft_read_heredoc_input(delimiter);
+	content = ft_read_heredoc_input(delimiter, shell, qouted);
 	if (!content)
 		return (NULL);
 	temp_filename = ft_create_temp_filename();

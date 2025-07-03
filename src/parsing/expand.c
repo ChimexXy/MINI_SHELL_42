@@ -6,7 +6,7 @@
 /*   By: mozahnou <mozahnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 10:42:20 by mozahnou          #+#    #+#             */
-/*   Updated: 2025/07/02 10:42:20 by mozahnou         ###   ########.fr       */
+/*   Updated: 2025/07/03 23:18:36 by mozahnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,35 +46,15 @@ static char	*ft_extract_var_name(char *str, int *i)
 
 char	*ft_expand_dollar(char *s, int *i, t_shell *shell)
 {
-	char	*var_name;
-	char	*var_value;
-	int		start;
-	int		is_quoted;
+	t_expand	exp;
 
-	start = *i;
+	exp.start = *i;
 	(*i)++;
-	is_quoted = (s[*i] == '"' || s[*i] == '\'');
-	var_name = ft_extract_var_name(s, i);
-	if (!var_name)
-	{
-		*i = start + 1;
-		return (ft_strdup("$"));
-	}
-	if (is_quoted)
-	{
-		var_value = ft_strdup(var_name);
-		free(var_name);
-		return (var_value);
-	}
-	if (ft_strlen(var_name) == 0)
-	{
-		free(var_name);
-		*i = start + 1;
-		return (ft_strdup("$"));
-	}
-	var_value = ft_get_variable_value(var_name, shell);
-	free(var_name);
-	return (var_value);
+	exp.is_quoted = (s[*i] == '"' || s[*i] == '\'');
+	exp.var_name = ft_extract_var_name(s, i);
+	exp.i = i;
+	exp.shell = shell;
+	return (ft_expand_var_value(&exp));
 }
 
 static char	*ft_append_char(char *str, char c)

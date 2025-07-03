@@ -32,6 +32,7 @@ SOURCES = $(SRCDIR)/exec/executor.c \
           $(SRCDIR)/parsing/quotes.c \
           $(SRCDIR)/parsing/free.c \
           $(SRCDIR)/parsing/parse.c \
+          $(SRCDIR)/parsing/expand_utils.c \
           $(SRCDIR)/parsing/parse_utils.c \
           $(SRCDIR)/parsing/parse_cmd.c \
           $(SRCDIR)/parsing/env_basic.c \

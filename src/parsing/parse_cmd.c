@@ -6,7 +6,7 @@
 /*   By: mozahnou <mozahnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 10:42:39 by mozahnou          #+#    #+#             */
-/*   Updated: 2025/07/03 05:34:47 by mozahnou         ###   ########.fr       */
+/*   Updated: 2025/07/03 21:32:10 by mozahnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_cmd	*ft_creat_cmd(void)
 	return (cmd);
 }
 
-void	ft_add_redir(t_cmd *cmd, t_token_type type, char *file)
+void	ft_add_redir(t_cmd *cmd, t_token_type type, char *file, int check_flag)
 {
 	t_redir	*new_redir;
 	t_redir	*current;
@@ -35,6 +35,7 @@ void	ft_add_redir(t_cmd *cmd, t_token_type type, char *file)
 		return ;
 	new_redir->type = type;
 	new_redir->file = ft_strdup(file);
+	new_redir->quoted = check_flag;
 	new_redir->next = NULL;
 	if (!cmd->redirs)
 		cmd->redirs = new_redir;

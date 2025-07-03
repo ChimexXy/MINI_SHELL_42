@@ -6,7 +6,7 @@
 /*   By: mozahnou <mozahnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 11:37:57 by mozahnou          #+#    #+#             */
-/*   Updated: 2025/07/03 07:26:15 by mozahnou         ###   ########.fr       */
+/*   Updated: 2025/07/03 23:43:51 by mozahnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef struct s_quote_state
 	char	quote_char;
 }	t_quote_state;
 
+
 /* Token structure */
 typedef struct s_token
 {
@@ -80,6 +81,7 @@ typedef struct s_redir
 {
 	t_token_type	type;
 	char			*file;
+	int				quoted;
 	struct s_redir	*next;
 }					t_redir;
 
@@ -98,6 +100,16 @@ typedef struct s_shell
 	int				exit_status;
 	t_cmd			*cmds;
 }					t_shell;
+
+/* just for norminette*/
+typedef struct s_expand
+{
+	char	*var_name;
+	int		is_quoted;
+	int		start;
+	int		*i;
+	t_shell	*shell;
+}	t_expand;
 
 /* Executor functions */
 void				ft_exec_cmds(t_shell *shell, t_cmd *cmds);
@@ -146,7 +158,7 @@ char				*ft_get_variable_value(char *var, t_shell *shell);
 int					ft_in_singlea_q(char *s, int pos);
 
 /* Quote handling */
-char				*ft_handle_quotes(char *str);
+char				*ft_handle_quotes(char *str, int *check_flag);
 char				ft_check_unclosed_quotes(char *str);
 
 /* Path resolution */
@@ -155,12 +167,14 @@ char				**ft_get_path_dirs(char **env);
 int					ft_is_executable(char *path);
 
 /* Heredoc functions */
-int					ft_preprocess_heredocs(t_cmd *cmds);
-char				*ft_create_heredoc_file(char *delimiter);
+int					ft_preprocess_heredocs(t_cmd *cmds, t_shell *shell);
+char				*ft_create_heredoc_file(char *delimiter, t_shell *shell,
+						int qouted);
 void				ft_cleanup_heredoc_file(char *filename);
 char				*ft_create_temp_filename(void);
-char				*ft_read_heredoc_input(char *delimiter);
-int					ft_process_heredoc_redir(t_redir *redir);
+char				*ft_read_heredoc_input(char *delimiter, t_shell *shell,
+						int qouted);
+int					ft_process_heredoc_redir(t_redir *redir, t_shell *shell);
 
 /* Signal functions */
 void				ft_setup_signals(void);
@@ -186,7 +200,8 @@ char				*ft_strjoin_with_newline(char *s1, char *s2);
 
 /* Command creation functions */
 t_cmd				*ft_creat_cmd(void);
-void				ft_add_redir(t_cmd *cmd, t_token_type type, char *file);
+void				ft_add_redir(t_cmd *cmd, t_token_type type,
+						char *file, int check_flag);
 
 /* Shell management functions */
 void				ft_init_shell(t_shell *shell, char **envp);
@@ -205,4 +220,8 @@ int					ft_handle_export_error(char *identifier);
 int					ft_is_valid_identifier(char *str);
 void				ft_print_exit_error(char *arg, char *message);
 int					ft_validate_input(t_shell *shell, char *input);
+
+//just for norm
+char				*ft_expand_var_value(t_expand *exp);
+
 #endif

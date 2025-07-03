@@ -6,7 +6,7 @@
 /*   By: mozahnou <mozahnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 10:41:31 by mozahnou          #+#    #+#             */
-/*   Updated: 2025/07/03 05:27:11 by mozahnou         ###   ########.fr       */
+/*   Updated: 2025/07/03 23:46:20 by mozahnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ static int	ft_handle_export_arg(t_shell *shell, char *arg)
 		return (1);
 	}
 	equal_pos = ft_strchr(arg, '=');
+	if (!equal_pos)
+		return (0);
 	ft_handle_assignment(shell, arg, equal_pos);
 	return (0);
 }

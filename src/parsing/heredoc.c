@@ -6,7 +6,7 @@
 /*   By: mozahnou <mozahnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 10:42:31 by mozahnou          #+#    #+#             */
-/*   Updated: 2025/07/03 07:17:56 by mozahnou         ###   ########.fr       */
+/*   Updated: 2025/07/03 23:42:42 by mozahnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@ static char	*ft_process_heredoc_line(char *content, char *line)
 	return (new_content);
 }
 
-int	ft_process_heredoc_redir(t_redir *redir)
+int	ft_process_heredoc_redir(t_redir *redir, t_shell *shell)
 {
 	char	*temp_filename;
 
-	temp_filename = ft_create_heredoc_file(redir->file);
+	temp_filename = ft_create_heredoc_file(redir->file, shell, redir->quoted);
 	if (!temp_filename)
 		return (-1);
 	free(redir->file);
@@ -60,29 +60,6 @@ static int	ft_check_delimiter(char *line, char *delimiter)
 	return (0);
 }
 
-char	*ft_read_heredoc_input(char *delimiter)
-{
-	char	*line;
-	char	*content;
-
-	content = ft_strdup("");
-	if (!content)
-		return (NULL);
-	while (1)
-	{
-		line = readline("> ");
-		if (ft_check_delimiter(line, delimiter))
-			break ;
-		if (!line)
-			break ;
-		content = ft_process_heredoc_line(content, line);
-		free(line);
-		if (!content)
-			return (NULL);
-	}
-	return (content);
-}
-
 char	*ft_create_temp_filename(void)
 {
 	static int	count;
@@ -96,4 +73,33 @@ char	*ft_create_temp_filename(void)
 	filename = ft_strjoin("/tmp/minishell_heredoc_", count_str);
 	free(count_str);
 	return (filename);
+}
+
+char	*ft_read_heredoc_input(char *delimiter, t_shell *shell, int qouted)
+{
+	char	*line;
+	char	*content;
+	char	*expanded_line;
+
+	content = ft_strdup("");
+	if (!content)
+		return (NULL);
+	while (1)
+	{
+		line = readline("> ");
+		if (!line || ft_check_delimiter(line, delimiter))
+			break ;
+		if (qouted == 0)
+		{
+			expanded_line = ft_expand_variables(line, shell);
+			content = ft_process_heredoc_line(content, expanded_line);
+			free(expanded_line);
+		}
+		else
+			content = ft_process_heredoc_line(content, line);
+		free(line);
+		if (!content)
+			return (NULL);
+	}
+	return (content);
 }

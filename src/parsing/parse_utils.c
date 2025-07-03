@@ -6,7 +6,7 @@
 /*   By: mozahnou <mozahnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 10:42:35 by mozahnou          #+#    #+#             */
-/*   Updated: 2025/07/02 10:42:35 by mozahnou         ###   ########.fr       */
+/*   Updated: 2025/07/03 22:58:40 by mozahnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,11 @@ void	ft_process_word_token(t_cmd *cmd, t_token *token, int *index,
 {
 	char	*expanded_value;
 	char	*processed_value;
+	int		check_flag;
 
+	check_flag = 0;
 	expanded_value = ft_expand_variables(token->value, shell);
-	processed_value = ft_handle_quotes(expanded_value);
+	processed_value = ft_handle_quotes(expanded_value, &check_flag);
 	cmd->args[*index] = processed_value;
 	free(expanded_value);
 	(*index)++;
@@ -44,10 +46,15 @@ static void	ft_handle_redir_file(t_cmd *cmd, t_token **token, t_shell *shell,
 {
 	char	*expanded_value;
 	char	*processed_value;
+	int		check_flag;
 
-	expanded_value = ft_expand_variables((*token)->value, shell);
-	processed_value = ft_handle_quotes(expanded_value);
-	ft_add_redir(cmd, redir_type, processed_value);
+	check_flag = 0;
+	if (redir_type == TOKEN_HEREDOC)
+		expanded_value = ft_strdup((*token)->value);
+	else
+		expanded_value = ft_expand_variables((*token)->value, shell);
+	processed_value = ft_handle_quotes(expanded_value, &check_flag);
+	ft_add_redir(cmd, redir_type, processed_value, check_flag);
 	free(expanded_value);
 	free(processed_value);
 	*token = (*token)->next;

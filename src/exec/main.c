@@ -6,7 +6,7 @@
 /*   By: mozahnou <mozahnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 10:42:01 by mozahnou          #+#    #+#             */
-/*   Updated: 2025/07/02 10:42:01 by mozahnou         ###   ########.fr       */
+/*   Updated: 2025/07/03 23:07:45 by mozahnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	ft_process_input(t_shell *shell, char *input)
 		shell->cmds = ft_parse_tokens(tokens, shell);
 		if (shell->exit_status != SYNTAX_ERROR && shell->cmds)
 		{
-			if (ft_preprocess_heredocs(shell->cmds) == 0)
+			if (ft_preprocess_heredocs(shell->cmds, shell) == 0)
 				ft_exec_cmds(shell, shell->cmds);
 		}
 		ft_free_tokens(tokens);

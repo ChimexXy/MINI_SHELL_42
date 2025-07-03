@@ -6,7 +6,7 @@
 /*   By: mozahnou <mozahnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 10:41:58 by mozahnou          #+#    #+#             */
-/*   Updated: 2025/07/03 05:27:24 by mozahnou         ###   ########.fr       */
+/*   Updated: 2025/07/03 10:07:15 by mozahnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	ft_exec_cmds(t_shell *shell, t_cmd *cmds)
 {
 	if (!cmds || !cmds->args)
 		return ;
-	ft_preprocess_heredocs(cmds);
+	ft_preprocess_heredocs(cmds, shell);
 	if (!cmds->next)
 		ft_exec_sing_cmd(shell, cmds);
 	else
