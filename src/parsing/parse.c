@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mozahnou <mozahnou@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/03 05:33:57 by mozahnou          #+#    #+#             */
+/*   Updated: 2025/07/03 05:34:24 by mozahnou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 static void	ft_pars_args(t_cmd *cmd, t_token **tokens, t_shell *shell)
@@ -19,8 +31,8 @@ static void	ft_pars_args(t_cmd *cmd, t_token **tokens, t_shell *shell)
 			ft_process_word_token(cmd, current, &i, shell);
 			current = current->next;
 		}
-		else if (current->type >= TOKEN_REDIR_IN &&
-					current->type <= TOKEN_HEREDOC)
+		else if (current->type >= TOKEN_REDIR_IN
+			&& current->type <= TOKEN_HEREDOC)
 			ft_process_redir_token(cmd, &current, shell);
 		else
 			current = current->next;

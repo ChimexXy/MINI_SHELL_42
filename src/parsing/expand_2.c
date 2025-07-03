@@ -6,7 +6,7 @@
 /*   By: mozahnou <mozahnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 10:42:18 by mozahnou          #+#    #+#             */
-/*   Updated: 2025/07/02 10:42:18 by mozahnou         ###   ########.fr       */
+/*   Updated: 2025/07/03 05:32:25 by mozahnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ char	*ft_get_variable_value(char *var, t_shell *shell)
 		return (value);
 	return (ft_strdup(""));
 }
+
 char	*ft_extract_quoted_var(char *str, int *i)
 {
 	int		start;
@@ -74,8 +75,8 @@ char	*ft_extract_quoted_var(char *str, int *i)
 char	*ft_handle_dollar_expansion(char *str, int *i, char *result,
 		t_shell *shell)
 {
-	char *expanded;
-	char *tmp;
+	char	*expanded;
+	char	*tmp;
 
 	expanded = ft_expand_dollar(str, i, shell);
 	tmp = ft_strjoin(result, expanded);

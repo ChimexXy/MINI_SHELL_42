@@ -6,7 +6,7 @@
 /*   By: mozahnou <mozahnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 10:42:23 by mozahnou          #+#    #+#             */
-/*   Updated: 2025/07/02 10:42:23 by mozahnou         ###   ########.fr       */
+/*   Updated: 2025/07/03 05:32:44 by mozahnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void	ft_free_redirs(t_redir *redirs)
 	{
 		tmp_redir = redirs;
 		redirs = redirs->next;
-		if (tmp_redir->file &&
-			ft_strncmp(tmp_redir->file, "/tmp/minishell_heredoc_", 23) == 0)
+		if (tmp_redir->file
+			&& ft_strncmp(tmp_redir->file, "/tmp/minishell_heredoc_", 23) == 0)
 			ft_cleanup_heredoc_file(tmp_redir->file);
 		free(tmp_redir->file);
 		free(tmp_redir);

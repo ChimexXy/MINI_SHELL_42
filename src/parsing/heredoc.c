@@ -6,7 +6,7 @@
 /*   By: mozahnou <mozahnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 10:42:31 by mozahnou          #+#    #+#             */
-/*   Updated: 2025/07/02 10:42:31 by mozahnou         ###   ########.fr       */
+/*   Updated: 2025/07/03 07:17:56 by mozahnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,7 @@ static int	ft_check_delimiter(char *line, char *delimiter)
 	if (!line)
 	{
 		printf("\nminishell: warning: here-document delimited by end-of-file "
-				"(wanted `%s')\n",
-				delimiter);
+			"(wanted `%s')\n", delimiter);
 		return (1);
 	}
 	if (ft_strcmp(line, delimiter) == 0)

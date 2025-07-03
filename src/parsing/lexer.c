@@ -6,7 +6,7 @@
 /*   By: mozahnou <mozahnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 10:42:33 by mozahnou          #+#    #+#             */
-/*   Updated: 2025/07/02 10:42:33 by mozahnou         ###   ########.fr       */
+/*   Updated: 2025/07/03 05:35:59 by mozahnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	ft_find_word_end(char *input, int start)
 		else if (quote && input[i] == quote)
 			quote = 0;
 		else if (!quote && (input[i] == ' ' || input[i] == '\t'
-					|| input[i] == '<' || input[i] == '>' || input[i] == '|'))
+				|| input[i] == '<' || input[i] == '>' || input[i] == '|'))
 			break ;
 		i++;
 	}

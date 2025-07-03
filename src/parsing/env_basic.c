@@ -6,7 +6,7 @@
 /*   By: mozahnou <mozahnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 10:42:07 by mozahnou          #+#    #+#             */
-/*   Updated: 2025/07/02 10:42:07 by mozahnou         ###   ########.fr       */
+/*   Updated: 2025/07/03 05:31:11 by mozahnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,8 @@ void	ft_set_env_value(t_shell *shell, char *key, char *value)
 	i = 0;
 	while (shell->env[i])
 	{
-		if (ft_strncmp(shell->env[i], key, key_len) == 0 &&
-			shell->env[i][key_len] == '=')
+		if (ft_strncmp(shell->env[i], key, key_len) == 0
+			&& shell->env[i][key_len] == '=')
 		{
 			ft_update_existing_env(&shell->env[i], key, value);
 			return ;

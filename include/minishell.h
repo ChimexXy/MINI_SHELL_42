@@ -6,7 +6,7 @@
 /*   By: mozahnou <mozahnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 11:37:57 by mozahnou          #+#    #+#             */
-/*   Updated: 2025/07/02 18:57:33 by mohkhald         ###   ########.fr       */
+/*   Updated: 2025/07/03 07:18:21 by mozahnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,15 @@ typedef enum e_token_type
 	TOKEN_REDIR_APPEND,
 	TOKEN_HEREDOC,
 }					t_token_type;
+
+/* just for norminette*/
+typedef struct s_quote_state
+{
+	int i;
+	int j;
+	char quote_char;
+}	t_quote_state;
+
 
 /* Token structure */
 typedef struct s_token

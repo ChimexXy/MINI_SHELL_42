@@ -6,7 +6,7 @@
 /*   By: mozahnou <mozahnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 10:42:47 by mozahnou          #+#    #+#             */
-/*   Updated: 2025/07/02 10:42:47 by mozahnou         ###   ########.fr       */
+/*   Updated: 2025/07/03 05:46:40 by mozahnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,63 +36,57 @@ char	ft_check_unclosed_quotes(char *str)
 	return (quote_char);
 }
 
-static int	ft_is_quote(char c)
-{
-	return (c == '\'' || c == '"');
-}
 
-static int	ft_handle_escaped_quote(const char *str, char *result, int *i,
-		int *j)
+static int	ft_handle_escaped_quote(const char *str, char *result,
+		t_quote_state *state)
 {
-	if (str[*i] == '\\' && str[*i + 1] && ft_is_quote(str[*i + 1]))
+	if (str[state->i] == '\\' && str[state->i + 1]
+		&& (str[state->i + 1] == '\'' || str[state->i + 1] == '"'))
 	{
-		result[(*j)++] = str[*i + 1];
-		*i += 2;
+		result[state->j++] = str[state->i + 1];
+		state->i += 2;
 		return (1);
 	}
 	return (0);
 }
 
-static void	process_quotes(const char *str, char *result, int *i, int *j,
-		char *quote_char)
+static void	process_quotes(const char *str, char *result, t_quote_state *state)
 {
-	if (!*quote_char && ft_is_quote(str[*i]))
+	if (!state->quote_char && (str[state->i] == '\'' || str[state->i] == '"'))
 	{
-		*quote_char = str[*i];
-		(*i)++;
+		state->quote_char = str[state->i];
+		state->i++;
 	}
-	else if (*quote_char && str[*i] == *quote_char)
+	else if (state->quote_char && str[state->i] == state->quote_char)
 	{
-		*quote_char = 0;
-		(*i)++;
+		state->quote_char = 0;
+		state->i++;
 	}
 	else
 	{
-		result[(*j)++] = str[(*i)++];
+		result[state->j++] = str[state->i++];
 	}
 }
 
 char	*ft_handle_quotes(char *str)
 {
-	char	*result;
-	int		i;
-	int		j;
-	char	quote_char;
+	char			*result;
+	t_quote_state	state;
 
-	i = 0;
-	j = 0;
-	quote_char = 0;
+	state.i = 0;
+	state.j = 0;
+	state.quote_char = 0;
 	if (!str)
 		return (NULL);
 	result = malloc(ft_strlen(str) + 1);
 	if (!result)
 		return (NULL);
-	while (str[i])
+	while (str[state.i])
 	{
-		if (ft_handle_escaped_quote(str, result, &i, &j))
+		if (ft_handle_escaped_quote(str, result, &state))
 			continue ;
-		process_quotes(str, result, &i, &j, &quote_char);
+		process_quotes(str, result, &state);
 	}
-	result[j] = '\0';
+	result[state.j] = '\0';
 	return (result);
 }

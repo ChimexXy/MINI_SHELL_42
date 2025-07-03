@@ -6,7 +6,7 @@
 /*   By: mozahnou <mozahnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 10:42:39 by mozahnou          #+#    #+#             */
-/*   Updated: 2025/07/02 10:42:39 by mozahnou         ###   ########.fr       */
+/*   Updated: 2025/07/03 05:34:47 by mozahnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,12 @@ void	ft_add_redir(t_cmd *cmd, t_token_type type, char *file)
 		current->next = new_redir;
 	}
 }
+
 char	**ft_copy_env(char **env)
 {
-	int i;
-	int count;
-	char **new_env;
+	int		i;
+	int		count;
+	char	**new_env;
 
 	i = 0;
 	count = 0;
