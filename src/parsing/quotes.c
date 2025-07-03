@@ -6,7 +6,7 @@
 /*   By: mozahnou <mozahnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 10:42:47 by mozahnou          #+#    #+#             */
-/*   Updated: 2025/07/03 05:46:40 by mozahnou         ###   ########.fr       */
+/*   Updated: 2025/07/03 07:24:07 by mozahnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ char	ft_check_unclosed_quotes(char *str)
 	}
 	return (quote_char);
 }
-
 
 static int	ft_handle_escaped_quote(const char *str, char *result,
 		t_quote_state *state)

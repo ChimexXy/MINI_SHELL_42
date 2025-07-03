@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error_handeling_2.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mozahnou <mozahnou@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/03 07:24:00 by mozahnou          #+#    #+#             */
+/*   Updated: 2025/07/03 07:24:00 by mozahnou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 void	ft_print_exit_error(char *arg, char *message)
@@ -15,7 +27,7 @@ void	ft_print_exit_error(char *arg, char *message)
 
 int	ft_validate_input(t_shell *shell, char *input)
 {
-	char unclosed_quote;
+	char	unclosed_quote;
 
 	unclosed_quote = ft_check_unclosed_quotes(input);
 	if (unclosed_quote)
