@@ -30,33 +30,25 @@ int ft_is_valid_identifier(char *str) {
     return (0);
   return (1);
 }
-static int ft_handle_export_arg(t_shell *shell, char *arg) {
-  char *key;
-  char *value;
-  char *equal_pos;
-  char *existing_value;
-
-  if (!arg || !*arg) {
-    ft_handle_export_error(arg);
-    return (1);
-  }
-
+static int ft_validate_quoted_arg(char *arg) {
   if ((arg[0] == '"' && arg[ft_strlen(arg) - 1] == '"') ||
       (arg[0] == '\'' && arg[ft_strlen(arg) - 1] == '\'')) {
     char *unquoted = ft_substr(arg, 1, ft_strlen(arg) - 2);
     if (!ft_is_valid_identifier(unquoted)) {
       ft_handle_export_error(arg);
       free(unquoted);
-      return (1);
+      return (0);
     }
     free(unquoted);
   }
+  return (1);
+}
 
-  if (!ft_is_valid_identifier(arg)) {
-    ft_handle_export_error(arg);
-    return (1);
-  }
-  equal_pos = ft_strchr(arg, '=');
+static void ft_handle_assignment(t_shell *shell, char *arg, char *equal_pos) {
+  char *key;
+  char *value;
+  char *existing_value;
+
   if (equal_pos) {
     *equal_pos = '\0';
     key = arg;
@@ -71,6 +63,23 @@ static int ft_handle_export_arg(t_shell *shell, char *arg) {
     else
       free(existing_value);
   }
+}
+
+static int ft_handle_export_arg(t_shell *shell, char *arg) {
+  char *equal_pos;
+
+  if (!arg || !*arg) {
+    ft_handle_export_error(arg);
+    return (1);
+  }
+  if (!ft_validate_quoted_arg(arg))
+    return (1);
+  if (!ft_is_valid_identifier(arg)) {
+    ft_handle_export_error(arg);
+    return (1);
+  }
+  equal_pos = ft_strchr(arg, '=');
+  ft_handle_assignment(shell, arg, equal_pos);
   return (0);
 }
 

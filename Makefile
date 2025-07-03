@@ -19,6 +19,7 @@ SOURCES = $(SRCDIR)/exec/executor.c \
           $(SRCDIR)/exec/builtins_basic.c \
           $(SRCDIR)/exec/builtins_export.c \
           $(SRCDIR)/exec/builtins_exit.c \
+          $(SRCDIR)/exec/builtins_exit_utils.c \
           $(SRCDIR)/exec/builtin_echo.c \
           $(SRCDIR)/exec/builtin_cd.c \
           $(SRCDIR)/parsing/heredoc.c \
@@ -35,7 +36,6 @@ SOURCES = $(SRCDIR)/exec/executor.c \
           $(SRCDIR)/parsing/env_basic.c \
           $(SRCDIR)/parsing/env_unset.c \
           $(SRCDIR)/parsing/lexer.c \
-          $(SRCDIR)/parsing/handle_qoutes.c \
           $(SRCDIR)/parsing/token_utils.c \
           $(SRCDIR)/utils/error_handling.c \
           $(SRCDIR)/utils/error_handeling_2.c \

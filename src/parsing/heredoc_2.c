@@ -56,12 +56,34 @@ int	ft_preprocess_heredocs(t_cmd *cmds)
 	return (0);
 }
 
+static int	ft_write_content_to_fd(int fd, char *content, char *temp_filename)
+{
+	int	bytes_written;
+
+	if (ft_strlen(content) > 0)
+	{
+		bytes_written = write(fd, content, ft_strlen(content));
+		if (bytes_written == -1)
+		{
+			perror("write");
+			close(fd);
+			unlink(temp_filename);
+			return (-1);
+		}
+	}
+	return (0);
+}
+
+static int	ft_open_temp_file(char *temp_filename)
+{
+	return (open(temp_filename, O_CREAT | O_WRONLY | O_TRUNC, 0600));
+}
+
 char	*ft_create_heredoc_file(char *delimiter)
 {
 	char	*content;
 	char	*temp_filename;
 	int		fd;
-	int		bytes_written;
 
 	if (!delimiter || !*delimiter)
 		return (NULL);
@@ -74,25 +96,12 @@ char	*ft_create_heredoc_file(char *delimiter)
 		free(content);
 		return (NULL);
 	}
-	fd = open(temp_filename, O_CREAT | O_WRONLY | O_TRUNC, 0600);
-	if (fd == -1)
+	fd = ft_open_temp_file(temp_filename);
+	if (fd == -1 || ft_write_content_to_fd(fd, content, temp_filename) == -1)
 	{
 		free(content);
 		free(temp_filename);
 		return (NULL);
-	}
-	if (ft_strlen(content) > 0)
-	{
-		bytes_written = write(fd, content, ft_strlen(content));
-		if (bytes_written == -1)
-		{
-			perror("write");
-			close(fd);
-			unlink(temp_filename);
-			free(content);
-			free(temp_filename);
-			return (NULL);
-		}
 	}
 	close(fd);
 	free(content);
