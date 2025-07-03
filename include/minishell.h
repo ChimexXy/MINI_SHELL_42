@@ -6,7 +6,7 @@
 /*   By: mozahnou <mozahnou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 11:37:57 by mozahnou          #+#    #+#             */
-/*   Updated: 2025/07/03 23:43:51 by mozahnou         ###   ########.fr       */
+/*   Updated: 2025/07/03 23:48:17 by mozahnou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ typedef struct s_quote_state
 	int		j;
 	char	quote_char;
 }	t_quote_state;
-
 
 /* Token structure */
 typedef struct s_token
